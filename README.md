@@ -45,7 +45,7 @@ make open
 
 The app is created at `build/Cubicon Native.app`. The first build downloads the official Cura 5.13.0 ARM64 installer, verifies its SHA-256, and extracts the engine with its five required libraries. It does not install the Cura desktop application. Python and Qt are not needed by the finished app.
 
-To install your local build, copy the app to your Applications folder.
+To install your local build, copy the app to your Applications folder. See [building](docs/BUILDING.md) for custom output paths and synced-folder troubleshooting.
 
 ## Command line
 
