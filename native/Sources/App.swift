@@ -280,7 +280,11 @@ final class NativeApp: NSObject, NSApplicationDelegate, NSWindowDelegate, NSText
         switch settings["adhesion_type"] ?? "none" {
         case "raft": return Double(settings["raft_margin"] ?? "15") ?? 15
         case "brim": return Double(settings["brim_width"] ?? "8") ?? 8
-        case "skirt": return (Double(settings["skirt_gap"] ?? "3") ?? 3)+(Double(settings["skirt_line_count"] ?? "1") ?? 1)*(Double(settings["skirt_brim_line_width"] ?? "0.4") ?? 0.4)
+        case "skirt":
+            let gap:Double = Double(settings["skirt_gap"] ?? "3") ?? 3
+            let lineCount:Double = Double(settings["skirt_line_count"] ?? "1") ?? 1
+            let lineWidth:Double = Double(settings["skirt_brim_line_width"] ?? "0.4") ?? 0.4
+            return gap + lineCount * lineWidth
         default: return 0
         }
     }
