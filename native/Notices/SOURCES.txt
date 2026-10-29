@@ -1,0 +1,27 @@
+Native engine provenance
+
+CuraEngine 5.13.0, source commit 636f9608621fd1d6c1b75ad2a969de53beabfbc6:
+https://github.com/Ultimaker/CuraEngine/tree/636f9608621fd1d6c1b75ad2a969de53beabfbc6
+AGPL-3.0-or-later; license text in CuraEngine-AGPL-3.0.txt.
+The executable and bundled libraries are unmodified native ARM64 binaries from the official Cura 5.13.0 Apple-notarized installer. The executable has been renamed CubiEngine for this application's launch path; its code is unchanged.
+
+Cura profiles, source commit 1fb8a7610460e03ec62da950d1c173a249b23b59:
+https://github.com/Ultimaker/Cura/tree/1fb8a7610460e03ec62da950d1c173a249b23b59
+Cubicon definitions identify Cubicon R&D Center as their author.
+
+libArcus:
+https://github.com/Ultimaker/libArcus
+LGPL-3.0; text in Arcus-LICENSE.txt.
+
+Clipper 6.4.2 (libpolyclipping):
+https://github.com/skyrpex/clipper
+Boost Software License 1.0; text in Clipper-LICENSE.txt.
+
+oneTBB (libtbb, libtbbmalloc and proxy):
+https://github.com/uxlfoundation/oneTBB
+Apache License 2.0; text in oneTBB-LICENSE.txt.
+
+CuraEngine's pinned dependency definitions and source recipes:
+https://github.com/Ultimaker/CuraEngine/blob/636f9608621fd1d6c1b75ad2a969de53beabfbc6/conanfile.py
+https://github.com/Ultimaker/conan-ultimaker-index
+Statically linked third-party dependencies retain their respective upstream copyrights and licenses.

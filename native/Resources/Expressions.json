@@ -1,0 +1,6193 @@
+{
+  "schemaVersion": 1,
+  "curaVersion": "5.13.0",
+  "expressions": {
+    "machine_extruder_count": {
+      "kind": "name",
+      "name": "machine_extruder_count"
+    },
+    "machine_gcode_flavor != \"UltiGCode\"": {
+      "kind": "compare",
+      "ops": [
+        "NotEq"
+      ],
+      "args": [
+        {
+          "kind": "name",
+          "name": "machine_gcode_flavor"
+        },
+        {
+          "kind": "constant",
+          "value": "UltiGCode"
+        }
+      ]
+    },
+    "machine_gcode_flavor == 'RepRap (Volumetric)' or machine_gcode_flavor == 'UltiGCode' or machine_gcode_flavor == 'BFB'": {
+      "kind": "bool",
+      "op": "Or",
+      "args": [
+        {
+          "kind": "compare",
+          "ops": [
+            "Eq"
+          ],
+          "args": [
+            {
+              "kind": "name",
+              "name": "machine_gcode_flavor"
+            },
+            {
+              "kind": "constant",
+              "value": "RepRap (Volumetric)"
+            }
+          ]
+        },
+        {
+          "kind": "compare",
+          "ops": [
+            "Eq"
+          ],
+          "args": [
+            {
+              "kind": "name",
+              "name": "machine_gcode_flavor"
+            },
+            {
+              "kind": "constant",
+              "value": "UltiGCode"
+            }
+          ]
+        },
+        {
+          "kind": "compare",
+          "ops": [
+            "Eq"
+          ],
+          "args": [
+            {
+              "kind": "name",
+              "name": "machine_gcode_flavor"
+            },
+            {
+              "kind": "constant",
+              "value": "BFB"
+            }
+          ]
+        }
+      ]
+    },
+    "machine_height": {
+      "kind": "name",
+      "name": "machine_height"
+    },
+    "2.0": {
+      "kind": "constant",
+      "value": 2.0
+    },
+    "machine_nozzle_size": {
+      "kind": "name",
+      "name": "machine_nozzle_size"
+    },
+    "line_width": {
+      "kind": "name",
+      "name": "line_width"
+    },
+    "wall_line_width": {
+      "kind": "name",
+      "name": "wall_line_width"
+    },
+    "extruderValue(support_roof_extruder_nr, 'support_interface_line_width')": {
+      "kind": "call",
+      "name": "extruderValue",
+      "args": [
+        {
+          "kind": "name",
+          "name": "support_roof_extruder_nr"
+        },
+        {
+          "kind": "constant",
+          "value": "support_interface_line_width"
+        }
+      ]
+    },
+    "extruderValue(support_bottom_extruder_nr, 'support_interface_line_width')": {
+      "kind": "call",
+      "name": "extruderValue",
+      "args": [
+        {
+          "kind": "name",
+          "name": "support_bottom_extruder_nr"
+        },
+        {
+          "kind": "constant",
+          "value": "support_interface_line_width"
+        }
+      ]
+    },
+    "wall_extruder_nr": {
+      "kind": "name",
+      "name": "wall_extruder_nr"
+    },
+    "1.2": {
+      "kind": "constant",
+      "value": 1.2
+    },
+    "1 if magic_spiralize else max(1, round((wall_thickness - wall_line_width_0) / wall_line_width_x) + 1) if wall_thickness != 0 else 0": {
+      "kind": "if",
+      "args": [
+        {
+          "kind": "name",
+          "name": "magic_spiralize"
+        },
+        {
+          "kind": "constant",
+          "value": 1
+        },
+        {
+          "kind": "if",
+          "args": [
+            {
+              "kind": "compare",
+              "ops": [
+                "NotEq"
+              ],
+              "args": [
+                {
+                  "kind": "name",
+                  "name": "wall_thickness"
+                },
+                {
+                  "kind": "constant",
+                  "value": 0
+                }
+              ]
+            },
+            {
+              "kind": "call",
+              "name": "max",
+              "args": [
+                {
+                  "kind": "constant",
+                  "value": 1
+                },
+                {
+                  "kind": "binary",
+                  "op": "Add",
+                  "args": [
+                    {
+                      "kind": "call",
+                      "name": "round",
+                      "args": [
+                        {
+                          "kind": "binary",
+                          "op": "Div",
+                          "args": [
+                            {
+                              "kind": "binary",
+                              "op": "Sub",
+                              "args": [
+                                {
+                                  "kind": "name",
+                                  "name": "wall_thickness"
+                                },
+                                {
+                                  "kind": "name",
+                                  "name": "wall_line_width_0"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "name",
+                              "name": "wall_line_width_x"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "constant",
+                      "value": 1
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "constant",
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    "100": {
+      "kind": "constant",
+      "value": 100
+    },
+    ".25 * machine_nozzle_size": {
+      "kind": "binary",
+      "op": "Mult",
+      "args": [
+        {
+          "kind": "constant",
+          "value": 0.25
+        },
+        {
+          "kind": "name",
+          "name": "machine_nozzle_size"
+        }
+      ]
+    },
+    "machine_nozzle_size / 2": {
+      "kind": "binary",
+      "op": "Div",
+      "args": [
+        {
+          "kind": "name",
+          "name": "machine_nozzle_size"
+        },
+        {
+          "kind": "constant",
+          "value": 2
+        }
+      ]
+    },
+    "(machine_nozzle_size - wall_line_width_0) / 2 if (wall_line_width_0 < machine_nozzle_size and inset_direction != \"outside_in\") else 0": {
+      "kind": "if",
+      "args": [
+        {
+          "kind": "bool",
+          "op": "And",
+          "args": [
+            {
+              "kind": "compare",
+              "ops": [
+                "Lt"
+              ],
+              "args": [
+                {
+                  "kind": "name",
+                  "name": "wall_line_width_0"
+                },
+                {
+                  "kind": "name",
+                  "name": "machine_nozzle_size"
+                }
+              ]
+            },
+            {
+              "kind": "compare",
+              "ops": [
+                "NotEq"
+              ],
+              "args": [
+                {
+                  "kind": "name",
+                  "name": "inset_direction"
+                },
+                {
+                  "kind": "constant",
+                  "value": "outside_in"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "binary",
+          "op": "Div",
+          "args": [
+            {
+              "kind": "binary",
+              "op": "Sub",
+              "args": [
+                {
+                  "kind": "name",
+                  "name": "machine_nozzle_size"
+                },
+                {
+                  "kind": "name",
+                  "name": "wall_line_width_0"
+                }
+              ]
+            },
+            {
+              "kind": "constant",
+              "value": 2
+            }
+          ]
+        },
+        {
+          "kind": "constant",
+          "value": 0
+        }
+      ]
+    },
+    "inset_direction": {
+      "kind": "name",
+      "name": "inset_direction"
+    },
+    "machine_nozzle_size * .85": {
+      "kind": "binary",
+      "op": "Mult",
+      "args": [
+        {
+          "kind": "name",
+          "name": "machine_nozzle_size"
+        },
+        {
+          "kind": "constant",
+          "value": 0.85
+        }
+      ]
+    },
+    "min_wall_line_width": {
+      "kind": "name",
+      "name": "min_wall_line_width"
+    },
+    "wall_line_width_0 / 4": {
+      "kind": "binary",
+      "op": "Div",
+      "args": [
+        {
+          "kind": "name",
+          "name": "wall_line_width_0"
+        },
+        {
+          "kind": "constant",
+          "value": 4
+        }
+      ]
+    },
+    "xy_offset": {
+      "kind": "name",
+      "name": "xy_offset"
+    },
+    "(0 if (z_seam_position == 'frontleft' or z_seam_position == 'left' or z_seam_position == 'backleft') else machine_width / 2 if (z_seam_position == 'front' or z_seam_position == 'back' or z_seam_position == 'middle') else machine_width) - (machine_width / 2 if z_seam_relative or machine_center_is_zero else 0)": {
+      "kind": "binary",
+      "op": "Sub",
+      "args": [
+        {
+          "kind": "if",
+          "args": [
+            {
+              "kind": "bool",
+              "op": "Or",
+              "args": [
+                {
+                  "kind": "compare",
+                  "ops": [
+                    "Eq"
+                  ],
+                  "args": [
+                    {
+                      "kind": "name",
+                      "name": "z_seam_position"
+                    },
+                    {
+                      "kind": "constant",
+                      "value": "frontleft"
+                    }
+                  ]
+                },
+                {
+                  "kind": "compare",
+                  "ops": [
+                    "Eq"
+                  ],
+                  "args": [
+                    {
+                      "kind": "name",
+                      "name": "z_seam_position"
+                    },
+                    {
+                      "kind": "constant",
+                      "value": "left"
+                    }
+                  ]
+                },
+                {
+                  "kind": "compare",
+                  "ops": [
+                    "Eq"
+                  ],
+                  "args": [
+                    {
+                      "kind": "name",
+                      "name": "z_seam_position"
+                    },
+                    {
+                      "kind": "constant",
+                      "value": "backleft"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "constant",
+              "value": 0
+            },
+            {
+              "kind": "if",
+              "args": [
+                {
+                  "kind": "bool",
+                  "op": "Or",
+                  "args": [
+                    {
+                      "kind": "compare",
+                      "ops": [
+                        "Eq"
+                      ],
+                      "args": [
+                        {
+                          "kind": "name",
+                          "name": "z_seam_position"
+                        },
+                        {
+                          "kind": "constant",
+                          "value": "front"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "compare",
+                      "ops": [
+                        "Eq"
+                      ],
+                      "args": [
+                        {
+                          "kind": "name",
+                          "name": "z_seam_position"
+                        },
+                        {
+                          "kind": "constant",
+                          "value": "back"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "compare",
+                      "ops": [
+                        "Eq"
+                      ],
+                      "args": [
+                        {
+                          "kind": "name",
+                          "name": "z_seam_position"
+                        },
+                        {
+                          "kind": "constant",
+                          "value": "middle"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "binary",
+                  "op": "Div",
+                  "args": [
+                    {
+                      "kind": "name",
+                      "name": "machine_width"
+                    },
+                    {
+                      "kind": "constant",
+                      "value": 2
+                    }
+                  ]
+                },
+                {
+                  "kind": "name",
+                  "name": "machine_width"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "if",
+          "args": [
+            {
+              "kind": "bool",
+              "op": "Or",
+              "args": [
+                {
+                  "kind": "name",
+                  "name": "z_seam_relative"
+                },
+                {
+                  "kind": "name",
+                  "name": "machine_center_is_zero"
+                }
+              ]
+            },
+            {
+              "kind": "binary",
+              "op": "Div",
+              "args": [
+                {
+                  "kind": "name",
+                  "name": "machine_width"
+                },
+                {
+                  "kind": "constant",
+                  "value": 2
+                }
+              ]
+            },
+            {
+              "kind": "constant",
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    "(0 if (z_seam_position == 'frontleft' or z_seam_position == 'front' or z_seam_position == 'frontright') else machine_depth / 2 if (z_seam_position == 'left' or z_seam_position == 'right' or z_seam_position == 'middle') else machine_depth) - (machine_depth / 2 if z_seam_relative or machine_center_is_zero else 0)": {
+      "kind": "binary",
+      "op": "Sub",
+      "args": [
+        {
+          "kind": "if",
+          "args": [
+            {
+              "kind": "bool",
+              "op": "Or",
+              "args": [
+                {
+                  "kind": "compare",
+                  "ops": [
+                    "Eq"
+                  ],
+                  "args": [
+                    {
+                      "kind": "name",
+                      "name": "z_seam_position"
+                    },
+                    {
+                      "kind": "constant",
+                      "value": "frontleft"
+                    }
+                  ]
+                },
+                {
+                  "kind": "compare",
+                  "ops": [
+                    "Eq"
+                  ],
+                  "args": [
+                    {
+                      "kind": "name",
+                      "name": "z_seam_position"
+                    },
+                    {
+                      "kind": "constant",
+                      "value": "front"
+                    }
+                  ]
+                },
+                {
+                  "kind": "compare",
+                  "ops": [
+                    "Eq"
+                  ],
+                  "args": [
+                    {
+                      "kind": "name",
+                      "name": "z_seam_position"
+                    },
+                    {
+                      "kind": "constant",
+                      "value": "frontright"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "constant",
+              "value": 0
+            },
+            {
+              "kind": "if",
+              "args": [
+                {
+                  "kind": "bool",
+                  "op": "Or",
+                  "args": [
+                    {
+                      "kind": "compare",
+                      "ops": [
+                        "Eq"
+                      ],
+                      "args": [
+                        {
+                          "kind": "name",
+                          "name": "z_seam_position"
+                        },
+                        {
+                          "kind": "constant",
+                          "value": "left"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "compare",
+                      "ops": [
+                        "Eq"
+                      ],
+                      "args": [
+                        {
+                          "kind": "name",
+                          "name": "z_seam_position"
+                        },
+                        {
+                          "kind": "constant",
+                          "value": "right"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "compare",
+                      "ops": [
+                        "Eq"
+                      ],
+                      "args": [
+                        {
+                          "kind": "name",
+                          "name": "z_seam_position"
+                        },
+                        {
+                          "kind": "constant",
+                          "value": "middle"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "binary",
+                  "op": "Div",
+                  "args": [
+                    {
+                      "kind": "name",
+                      "name": "machine_depth"
+                    },
+                    {
+                      "kind": "constant",
+                      "value": 2
+                    }
+                  ]
+                },
+                {
+                  "kind": "name",
+                  "name": "machine_depth"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "if",
+          "args": [
+            {
+              "kind": "bool",
+              "op": "Or",
+              "args": [
+                {
+                  "kind": "name",
+                  "name": "z_seam_relative"
+                },
+                {
+                  "kind": "name",
+                  "name": "machine_center_is_zero"
+                }
+              ]
+            },
+            {
+              "kind": "binary",
+              "op": "Div",
+              "args": [
+                {
+                  "kind": "name",
+                  "name": "machine_depth"
+                },
+                {
+                  "kind": "constant",
+                  "value": 2
+                }
+              ]
+            },
+            {
+              "kind": "constant",
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    "top_bottom_extruder_nr": {
+      "kind": "name",
+      "name": "top_bottom_extruder_nr"
+    },
+    "0": {
+      "kind": "constant",
+      "value": 0
+    },
+    "skin_line_width": {
+      "kind": "name",
+      "name": "skin_line_width"
+    },
+    "top_bottom_pattern": {
+      "kind": "name",
+      "name": "top_bottom_pattern"
+    },
+    "True": {
+      "kind": "constant",
+      "value": true
+    },
+    "skin_angles": {
+      "kind": "name",
+      "name": "skin_angles"
+    },
+    "top_bottom_thickness": {
+      "kind": "name",
+      "name": "top_bottom_thickness"
+    },
+    "math.ceil(round(top_thickness / resolveOrValue('layer_height'), 4))": {
+      "kind": "call",
+      "name": "math.ceil",
+      "args": [
+        {
+          "kind": "call",
+          "name": "round",
+          "args": [
+            {
+              "kind": "binary",
+              "op": "Div",
+              "args": [
+                {
+                  "kind": "name",
+                  "name": "top_thickness"
+                },
+                {
+                  "kind": "call",
+                  "name": "resolveOrValue",
+                  "args": [
+                    {
+                      "kind": "constant",
+                      "value": "layer_height"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "constant",
+              "value": 4
+            }
+          ]
+        }
+      ]
+    },
+    "top_bottom_thickness * 0.6": {
+      "kind": "binary",
+      "op": "Mult",
+      "args": [
+        {
+          "kind": "name",
+          "name": "top_bottom_thickness"
+        },
+        {
+          "kind": "constant",
+          "value": 0.6
+        }
+      ]
+    },
+    "math.ceil(round(bottom_thickness / resolveOrValue('layer_height'), 4))": {
+      "kind": "call",
+      "name": "math.ceil",
+      "args": [
+        {
+          "kind": "call",
+          "name": "round",
+          "args": [
+            {
+              "kind": "binary",
+              "op": "Div",
+              "args": [
+                {
+                  "kind": "name",
+                  "name": "bottom_thickness"
+                },
+                {
+                  "kind": "call",
+                  "name": "resolveOrValue",
+                  "args": [
+                    {
+                      "kind": "constant",
+                      "value": "layer_height"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "constant",
+              "value": 4
+            }
+          ]
+        }
+      ]
+    },
+    "bottom_layers": {
+      "kind": "name",
+      "name": "bottom_layers"
+    },
+    "skin_line_width * 2": {
+      "kind": "binary",
+      "op": "Mult",
+      "args": [
+        {
+          "kind": "name",
+          "name": "skin_line_width"
+        },
+        {
+          "kind": "constant",
+          "value": 2
+        }
+      ]
+    },
+    "False": {
+      "kind": "constant",
+      "value": false
+    },
+    "0 if top_bottom_pattern == 'concentric' and top_bottom_pattern_0 == 'concentric' and roofing_layer_count <= 0 else 1": {
+      "kind": "if",
+      "args": [
+        {
+          "kind": "bool",
+          "op": "And",
+          "args": [
+            {
+              "kind": "compare",
+              "ops": [
+                "Eq"
+              ],
+              "args": [
+                {
+                  "kind": "name",
+                  "name": "top_bottom_pattern"
+                },
+                {
+                  "kind": "constant",
+                  "value": "concentric"
+                }
+              ]
+            },
+            {
+              "kind": "compare",
+              "ops": [
+                "Eq"
+              ],
+              "args": [
+                {
+                  "kind": "name",
+                  "name": "top_bottom_pattern_0"
+                },
+                {
+                  "kind": "constant",
+                  "value": "concentric"
+                }
+              ]
+            },
+            {
+              "kind": "compare",
+              "ops": [
+                "LtE"
+              ],
+              "args": [
+                {
+                  "kind": "name",
+                  "name": "roofing_layer_count"
+                },
+                {
+                  "kind": "constant",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "constant",
+          "value": 0
+        },
+        {
+          "kind": "constant",
+          "value": 1
+        }
+      ]
+    },
+    "wall_line_width_0 / 2 + (ironing_line_spacing - skin_line_width * (1.0 + ironing_flow / 100) / 2 if ironing_pattern == 'concentric' else skin_line_width * (1.0 - ironing_flow / 100) / 2)": {
+      "kind": "binary",
+      "op": "Add",
+      "args": [
+        {
+          "kind": "binary",
+          "op": "Div",
+          "args": [
+            {
+              "kind": "name",
+              "name": "wall_line_width_0"
+            },
+            {
+              "kind": "constant",
+              "value": 2
+            }
+          ]
+        },
+        {
+          "kind": "if",
+          "args": [
+            {
+              "kind": "compare",
+              "ops": [
+                "Eq"
+              ],
+              "args": [
+                {
+                  "kind": "name",
+                  "name": "ironing_pattern"
+                },
+                {
+                  "kind": "constant",
+                  "value": "concentric"
+                }
+              ]
+            },
+            {
+              "kind": "binary",
+              "op": "Sub",
+              "args": [
+                {
+                  "kind": "name",
+                  "name": "ironing_line_spacing"
+                },
+                {
+                  "kind": "binary",
+                  "op": "Div",
+                  "args": [
+                    {
+                      "kind": "binary",
+                      "op": "Mult",
+                      "args": [
+                        {
+                          "kind": "name",
+                          "name": "skin_line_width"
+                        },
+                        {
+                          "kind": "binary",
+                          "op": "Add",
+                          "args": [
+                            {
+                              "kind": "constant",
+                              "value": 1.0
+                            },
+                            {
+                              "kind": "binary",
+                              "op": "Div",
+                              "args": [
+                                {
+                                  "kind": "name",
+                                  "name": "ironing_flow"
+                                },
+                                {
+                                  "kind": "constant",
+                                  "value": 100
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "constant",
+                      "value": 2
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "binary",
+              "op": "Div",
+              "args": [
+                {
+                  "kind": "binary",
+                  "op": "Mult",
+                  "args": [
+                    {
+                      "kind": "name",
+                      "name": "skin_line_width"
+                    },
+                    {
+                      "kind": "binary",
+                      "op": "Sub",
+                      "args": [
+                        {
+                          "kind": "constant",
+                          "value": 1.0
+                        },
+                        {
+                          "kind": "binary",
+                          "op": "Div",
+                          "args": [
+                            {
+                              "kind": "name",
+                              "name": "ironing_flow"
+                            },
+                            {
+                              "kind": "constant",
+                              "value": 100
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "constant",
+                  "value": 2
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "speed_topbottom * 20 / 30": {
+      "kind": "binary",
+      "op": "Div",
+      "args": [
+        {
+          "kind": "binary",
+          "op": "Mult",
+          "args": [
+            {
+              "kind": "name",
+              "name": "speed_topbottom"
+            },
+            {
+              "kind": "constant",
+              "value": 20
+            }
+          ]
+        },
+        {
+          "kind": "constant",
+          "value": 30
+        }
+      ]
+    },
+    "acceleration_topbottom": {
+      "kind": "name",
+      "name": "acceleration_topbottom"
+    },
+    "jerk_topbottom": {
+      "kind": "name",
+      "name": "jerk_topbottom"
+    },
+    "5 if top_bottom_pattern != 'concentric' else 0": {
+      "kind": "if",
+      "args": [
+        {
+          "kind": "compare",
+          "ops": [
+            "NotEq"
+          ],
+          "args": [
+            {
+              "kind": "name",
+              "name": "top_bottom_pattern"
+            },
+            {
+              "kind": "constant",
+              "value": "concentric"
+            }
+          ]
+        },
+        {
+          "kind": "constant",
+          "value": 5
+        },
+        {
+          "kind": "constant",
+          "value": 0
+        }
+      ]
+    },
+    "0.5 * (skin_line_width + (wall_line_width_x if wall_line_count > 1 else wall_line_width_0)) * skin_overlap / 100 if top_bottom_pattern != 'concentric' else 0": {
+      "kind": "if",
+      "args": [
+        {
+          "kind": "compare",
+          "ops": [
+            "NotEq"
+          ],
+          "args": [
+            {
+              "kind": "name",
+              "name": "top_bottom_pattern"
+            },
+            {
+              "kind": "constant",
+              "value": "concentric"
+            }
+          ]
+        },
+        {
+          "kind": "binary",
+          "op": "Div",
+          "args": [
+            {
+              "kind": "binary",
+              "op": "Mult",
+              "args": [
+                {
+                  "kind": "binary",
+                  "op": "Mult",
+                  "args": [
+                    {
+                      "kind": "constant",
+                      "value": 0.5
+                    },
+                    {
+                      "kind": "binary",
+                      "op": "Add",
+                      "args": [
+                        {
+                          "kind": "name",
+                          "name": "skin_line_width"
+                        },
+                        {
+                          "kind": "if",
+                          "args": [
+                            {
+                              "kind": "compare",
+                              "ops": [
+                                "Gt"
+                              ],
+                              "args": [
+                                {
+                                  "kind": "name",
+                                  "name": "wall_line_count"
+                                },
+                                {
+                                  "kind": "constant",
+                                  "value": 1
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "name",
+                              "name": "wall_line_width_x"
+                            },
+                            {
+                              "kind": "name",
+                              "name": "wall_line_width_0"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "name",
+                  "name": "skin_overlap"
+                }
+              ]
+            },
+            {
+              "kind": "constant",
+              "value": 100
+            }
+          ]
+        },
+        {
+          "kind": "constant",
+          "value": 0
+        }
+      ]
+    },
+    "wall_line_width_0 + (wall_line_count - 1) * wall_line_width_x": {
+      "kind": "binary",
+      "op": "Add",
+      "args": [
+        {
+          "kind": "name",
+          "name": "wall_line_width_0"
+        },
+        {
+          "kind": "binary",
+          "op": "Mult",
+          "args": [
+            {
+              "kind": "binary",
+              "op": "Sub",
+              "args": [
+                {
+                  "kind": "name",
+                  "name": "wall_line_count"
+                },
+                {
+                  "kind": "constant",
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "kind": "name",
+              "name": "wall_line_width_x"
+            }
+          ]
+        }
+      ]
+    },
+    "skin_preshrink": {
+      "kind": "name",
+      "name": "skin_preshrink"
+    },
+    "max(-skin_preshrink, wall_line_width_0 + (wall_line_count - 1) * wall_line_width_x)": {
+      "kind": "call",
+      "name": "max",
+      "args": [
+        {
+          "kind": "unary",
+          "op": "USub",
+          "args": [
+            {
+              "kind": "name",
+              "name": "skin_preshrink"
+            }
+          ]
+        },
+        {
+          "kind": "binary",
+          "op": "Add",
+          "args": [
+            {
+              "kind": "name",
+              "name": "wall_line_width_0"
+            },
+            {
+              "kind": "binary",
+              "op": "Mult",
+              "args": [
+                {
+                  "kind": "binary",
+                  "op": "Sub",
+                  "args": [
+                    {
+                      "kind": "name",
+                      "name": "wall_line_count"
+                    },
+                    {
+                      "kind": "constant",
+                      "value": 1
+                    }
+                  ]
+                },
+                {
+                  "kind": "name",
+                  "name": "wall_line_width_x"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "expand_skins_expand_distance": {
+      "kind": "name",
+      "name": "expand_skins_expand_distance"
+    },
+    "top_layers * layer_height / math.tan(math.radians(max_skin_angle_for_expansion))": {
+      "kind": "binary",
+      "op": "Div",
+      "args": [
+        {
+          "kind": "binary",
+          "op": "Mult",
+          "args": [
+            {
+              "kind": "name",
+              "name": "top_layers"
+            },
+            {
+              "kind": "name",
+              "name": "layer_height"
+            }
+          ]
+        },
+        {
+          "kind": "call",
+          "name": "math.tan",
+          "args": [
+            {
+              "kind": "call",
+              "name": "math.radians",
+              "args": [
+                {
+                  "kind": "name",
+                  "name": "max_skin_angle_for_expansion"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "0 if infill_sparse_density == 0 else (((infill_line_width * 100) / infill_sparse_density) * (((4/3) - (1/3) * (infill_sparse_density / 100.0)) if infill_pattern in ['honeycomb', 'octagon'] else (2 if infill_pattern == 'grid' else (3 if infill_pattern in ['triangles', 'trihexagon', 'cubic', 'cubicsubdiv'] else (2 if infill_pattern in ['tetrahedral', 'quarter_cubic'] else (1 if infill_pattern in ['cross', 'cross_3d'] else (1.6 if infill_pattern == 'lightning' else 1)))))))": {
+      "kind": "if",
+      "args": [
+        {
+          "kind": "compare",
+          "ops": [
+            "Eq"
+          ],
+          "args": [
+            {
+              "kind": "name",
+              "name": "infill_sparse_density"
+            },
+            {
+              "kind": "constant",
+              "value": 0
+            }
+          ]
+        },
+        {
+          "kind": "constant",
+          "value": 0
+        },
+        {
+          "kind": "binary",
+          "op": "Mult",
+          "args": [
+            {
+              "kind": "binary",
+              "op": "Div",
+              "args": [
+                {
+                  "kind": "binary",
+                  "op": "Mult",
+                  "args": [
+                    {
+                      "kind": "name",
+                      "name": "infill_line_width"
+                    },
+                    {
+                      "kind": "constant",
+                      "value": 100
+                    }
+                  ]
+                },
+                {
+                  "kind": "name",
+                  "name": "infill_sparse_density"
+                }
+              ]
+            },
+            {
+              "kind": "if",
+              "args": [
+                {
+                  "kind": "compare",
+                  "ops": [
+                    "In"
+                  ],
+                  "args": [
+                    {
+                      "kind": "name",
+                      "name": "infill_pattern"
+                    },
+                    {
+                      "kind": "list",
+                      "args": [
+                        {
+                          "kind": "constant",
+                          "value": "honeycomb"
+                        },
+                        {
+                          "kind": "constant",
+                          "value": "octagon"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "binary",
+                  "op": "Sub",
+                  "args": [
+                    {
+                      "kind": "binary",
+                      "op": "Div",
+                      "args": [
+                        {
+                          "kind": "constant",
+                          "value": 4
+                        },
+                        {
+                          "kind": "constant",
+                          "value": 3
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "binary",
+                      "op": "Mult",
+                      "args": [
+                        {
+                          "kind": "binary",
+                          "op": "Div",
+                          "args": [
+                            {
+                              "kind": "constant",
+                              "value": 1
+                            },
+                            {
+                              "kind": "constant",
+                              "value": 3
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "binary",
+                          "op": "Div",
+                          "args": [
+                            {
+                              "kind": "name",
+                              "name": "infill_sparse_density"
+                            },
+                            {
+                              "kind": "constant",
+                              "value": 100.0
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "if",
+                  "args": [
+                    {
+                      "kind": "compare",
+                      "ops": [
+                        "Eq"
+                      ],
+                      "args": [
+                        {
+                          "kind": "name",
+                          "name": "infill_pattern"
+                        },
+                        {
+                          "kind": "constant",
+                          "value": "grid"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "constant",
+                      "value": 2
+                    },
+                    {
+                      "kind": "if",
+                      "args": [
+                        {
+                          "kind": "compare",
+                          "ops": [
+                            "In"
+                          ],
+                          "args": [
+                            {
+                              "kind": "name",
+                              "name": "infill_pattern"
+                            },
+                            {
+                              "kind": "list",
+                              "args": [
+                                {
+                                  "kind": "constant",
+                                  "value": "triangles"
+                                },
+                                {
+                                  "kind": "constant",
+                                  "value": "trihexagon"
+                                },
+                                {
+                                  "kind": "constant",
+                                  "value": "cubic"
+                                },
+                                {
+                                  "kind": "constant",
+                                  "value": "cubicsubdiv"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "constant",
+                          "value": 3
+                        },
+                        {
+                          "kind": "if",
+                          "args": [
+                            {
+                              "kind": "compare",
+                              "ops": [
+                                "In"
+                              ],
+                              "args": [
+                                {
+                                  "kind": "name",
+                                  "name": "infill_pattern"
+                                },
+                                {
+                                  "kind": "list",
+                                  "args": [
+                                    {
+                                      "kind": "constant",
+                                      "value": "tetrahedral"
+                                    },
+                                    {
+                                      "kind": "constant",
+                                      "value": "quarter_cubic"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "constant",
+                              "value": 2
+                            },
+                            {
+                              "kind": "if",
+                              "args": [
+                                {
+                                  "kind": "compare",
+                                  "ops": [
+                                    "In"
+                                  ],
+                                  "args": [
+                                    {
+                                      "kind": "name",
+                                      "name": "infill_pattern"
+                                    },
+                                    {
+                                      "kind": "list",
+                                      "args": [
+                                        {
+                                          "kind": "constant",
+                                          "value": "cross"
+                                        },
+                                        {
+                                          "kind": "constant",
+                                          "value": "cross_3d"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "kind": "constant",
+                                  "value": 1
+                                },
+                                {
+                                  "kind": "if",
+                                  "args": [
+                                    {
+                                      "kind": "compare",
+                                      "ops": [
+                                        "Eq"
+                                      ],
+                                      "args": [
+                                        {
+                                          "kind": "name",
+                                          "name": "infill_pattern"
+                                        },
+                                        {
+                                          "kind": "constant",
+                                          "value": "lightning"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "constant",
+                                      "value": 1.6
+                                    },
+                                    {
+                                      "kind": "constant",
+                                      "value": 1
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "'lines' if infill_sparse_density > 25 else 'grid'": {
+      "kind": "if",
+      "args": [
+        {
+          "kind": "compare",
+          "ops": [
+            "Gt"
+          ],
+          "args": [
+            {
+              "kind": "name",
+              "name": "infill_sparse_density"
+            },
+            {
+              "kind": "constant",
+              "value": 25
+            }
+          ]
+        },
+        {
+          "kind": "constant",
+          "value": "lines"
+        },
+        {
+          "kind": "constant",
+          "value": "grid"
+        }
+      ]
+    },
+    "infill_pattern == 'cross' or infill_pattern == 'cross_3d'": {
+      "kind": "bool",
+      "op": "Or",
+      "args": [
+        {
+          "kind": "compare",
+          "ops": [
+            "Eq"
+          ],
+          "args": [
+            {
+              "kind": "name",
+              "name": "infill_pattern"
+            },
+            {
+              "kind": "constant",
+              "value": "cross"
+            }
+          ]
+        },
+        {
+          "kind": "compare",
+          "ops": [
+            "Eq"
+          ],
+          "args": [
+            {
+              "kind": "name",
+              "name": "infill_pattern"
+            },
+            {
+              "kind": "constant",
+              "value": "cross_3d"
+            }
+          ]
+        }
+      ]
+    },
+    "(infill_pattern == 'cross' or infill_pattern == 'cross_3d' or infill_multiplier % 2 == 0) and infill_wall_line_count > 0": {
+      "kind": "bool",
+      "op": "And",
+      "args": [
+        {
+          "kind": "bool",
+          "op": "Or",
+          "args": [
+            {
+              "kind": "compare",
+              "ops": [
+                "Eq"
+              ],
+              "args": [
+                {
+                  "kind": "name",
+                  "name": "infill_pattern"
+                },
+                {
+                  "kind": "constant",
+                  "value": "cross"
+                }
+              ]
+            },
+            {
+              "kind": "compare",
+              "ops": [
+                "Eq"
+              ],
+              "args": [
+                {
+                  "kind": "name",
+                  "name": "infill_pattern"
+                },
+                {
+                  "kind": "constant",
+                  "value": "cross_3d"
+                }
+              ]
+            },
+            {
+              "kind": "compare",
+              "ops": [
+                "Eq"
+              ],
+              "args": [
+                {
+                  "kind": "binary",
+                  "op": "Mod",
+                  "args": [
+                    {
+                      "kind": "name",
+                      "name": "infill_multiplier"
+                    },
+                    {
+                      "kind": "constant",
+                      "value": 2
+                    }
+                  ]
+                },
+                {
+                  "kind": "constant",
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "compare",
+          "ops": [
+            "Gt"
+          ],
+          "args": [
+            {
+              "kind": "name",
+              "name": "infill_wall_line_count"
+            },
+            {
+              "kind": "constant",
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    "[0, 90] if infill_pattern == 'octagon' else [0, 60, 120] if infill_pattern == 'honeycomb' else [0] if infill_pattern == 'gyroid' else [ ]": {
+      "kind": "if",
+      "args": [
+        {
+          "kind": "compare",
+          "ops": [
+            "Eq"
+          ],
+          "args": [
+            {
+              "kind": "name",
+              "name": "infill_pattern"
+            },
+            {
+              "kind": "constant",
+              "value": "octagon"
+            }
+          ]
+        },
+        {
+          "kind": "list",
+          "args": [
+            {
+              "kind": "constant",
+              "value": 0
+            },
+            {
+              "kind": "constant",
+              "value": 90
+            }
+          ]
+        },
+        {
+          "kind": "if",
+          "args": [
+            {
+              "kind": "compare",
+              "ops": [
+                "Eq"
+              ],
+              "args": [
+                {
+                  "kind": "name",
+                  "name": "infill_pattern"
+                },
+                {
+                  "kind": "constant",
+                  "value": "honeycomb"
+                }
+              ]
+            },
+            {
+              "kind": "list",
+              "args": [
+                {
+                  "kind": "constant",
+                  "value": 0
+                },
+                {
+                  "kind": "constant",
+                  "value": 60
+                },
+                {
+                  "kind": "constant",
+                  "value": 120
+                }
+              ]
+            },
+            {
+              "kind": "if",
+              "args": [
+                {
+                  "kind": "compare",
+                  "ops": [
+                    "Eq"
+                  ],
+                  "args": [
+                    {
+                      "kind": "name",
+                      "name": "infill_pattern"
+                    },
+                    {
+                      "kind": "constant",
+                      "value": "gyroid"
+                    }
+                  ]
+                },
+                {
+                  "kind": "list",
+                  "args": [
+                    {
+                      "kind": "constant",
+                      "value": 0
+                    }
+                  ]
+                },
+                {
+                  "kind": "list",
+                  "args": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "wall_line_width_x": {
+      "kind": "name",
+      "name": "wall_line_width_x"
+    },
+    "10 if infill_sparse_density < 95 and infill_pattern != 'concentric' else 0": {
+      "kind": "if",
+      "args": [
+        {
+          "kind": "bool",
+          "op": "And",
+          "args": [
+            {
+              "kind": "compare",
+              "ops": [
+                "Lt"
+              ],
+              "args": [
+                {
+                  "kind": "name",
+                  "name": "infill_sparse_density"
+                },
+                {
+                  "kind": "constant",
+                  "value": 95
+                }
+              ]
+            },
+            {
+              "kind": "compare",
+              "ops": [
+                "NotEq"
+              ],
+              "args": [
+                {
+                  "kind": "name",
+                  "name": "infill_pattern"
+                },
+                {
+                  "kind": "constant",
+                  "value": "concentric"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "constant",
+          "value": 10
+        },
+        {
+          "kind": "constant",
+          "value": 0
+        }
+      ]
+    },
+    "0.5 * (infill_line_width + (wall_line_width_x if wall_line_count > 1 else wall_line_width_0)) * infill_overlap / 100 if infill_sparse_density < 95 and infill_pattern != 'concentric' else 0": {
+      "kind": "if",
+      "args": [
+        {
+          "kind": "bool",
+          "op": "And",
+          "args": [
+            {
+              "kind": "compare",
+              "ops": [
+                "Lt"
+              ],
+              "args": [
+                {
+                  "kind": "name",
+                  "name": "infill_sparse_density"
+                },
+                {
+                  "kind": "constant",
+                  "value": 95
+                }
+              ]
+            },
+            {
+              "kind": "compare",
+              "ops": [
+                "NotEq"
+              ],
+              "args": [
+                {
+                  "kind": "name",
+                  "name": "infill_pattern"
+                },
+                {
+                  "kind": "constant",
+                  "value": "concentric"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "binary",
+          "op": "Div",
+          "args": [
+            {
+              "kind": "binary",
+              "op": "Mult",
+              "args": [
+                {
+                  "kind": "binary",
+                  "op": "Mult",
+                  "args": [
+                    {
+                      "kind": "constant",
+                      "value": 0.5
+                    },
+                    {
+                      "kind": "binary",
+                      "op": "Add",
+                      "args": [
+                        {
+                          "kind": "name",
+                          "name": "infill_line_width"
+                        },
+                        {
+                          "kind": "if",
+                          "args": [
+                            {
+                              "kind": "compare",
+                              "ops": [
+                                "Gt"
+                              ],
+                              "args": [
+                                {
+                                  "kind": "name",
+                                  "name": "wall_line_count"
+                                },
+                                {
+                                  "kind": "constant",
+                                  "value": 1
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "name",
+                              "name": "wall_line_width_x"
+                            },
+                            {
+                              "kind": "name",
+                              "name": "wall_line_width_0"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "name",
+                  "name": "infill_overlap"
+                }
+              ]
+            },
+            {
+              "kind": "constant",
+              "value": 100
+            }
+          ]
+        },
+        {
+          "kind": "constant",
+          "value": 0
+        }
+      ]
+    },
+    "wall_line_width_0 / 4 if wall_line_count == 1 else wall_line_width_x / 4": {
+      "kind": "if",
+      "args": [
+        {
+          "kind": "compare",
+          "ops": [
+            "Eq"
+          ],
+          "args": [
+            {
+              "kind": "name",
+              "name": "wall_line_count"
+            },
+            {
+              "kind": "constant",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "kind": "binary",
+          "op": "Div",
+          "args": [
+            {
+              "kind": "name",
+              "name": "wall_line_width_0"
+            },
+            {
+              "kind": "constant",
+              "value": 4
+            }
+          ]
+        },
+        {
+          "kind": "binary",
+          "op": "Div",
+          "args": [
+            {
+              "kind": "name",
+              "name": "wall_line_width_x"
+            },
+            {
+              "kind": "constant",
+              "value": 4
+            }
+          ]
+        }
+      ]
+    },
+    "resolveOrValue('layer_height')": {
+      "kind": "call",
+      "name": "resolveOrValue",
+      "args": [
+        {
+          "kind": "constant",
+          "value": "layer_height"
+        }
+      ]
+    },
+    "infill_sparse_density < 40 and gradual_infill_steps == 0 and infill_sparse_thickness == layer_height": {
+      "kind": "bool",
+      "op": "And",
+      "args": [
+        {
+          "kind": "compare",
+          "ops": [
+            "Lt"
+          ],
+          "args": [
+            {
+              "kind": "name",
+              "name": "infill_sparse_density"
+            },
+            {
+              "kind": "constant",
+              "value": 40
+            }
+          ]
+        },
+        {
+          "kind": "compare",
+          "ops": [
+            "Eq"
+          ],
+          "args": [
+            {
+              "kind": "name",
+              "name": "gradual_infill_steps"
+            },
+            {
+              "kind": "constant",
+              "value": 0
+            }
+          ]
+        },
+        {
+          "kind": "compare",
+          "ops": [
+            "Eq"
+          ],
+          "args": [
+            {
+              "kind": "name",
+              "name": "infill_sparse_thickness"
+            },
+            {
+              "kind": "name",
+              "name": "layer_height"
+            }
+          ]
+        }
+      ]
+    },
+    "bridge_skin_speed": {
+      "kind": "name",
+      "name": "bridge_skin_speed"
+    },
+    "bridge_skin_material_flow": {
+      "kind": "name",
+      "name": "bridge_skin_material_flow"
+    },
+    "bridge_skin_density": {
+      "kind": "name",
+      "name": "bridge_skin_density"
+    },
+    "bridge_fan_speed": {
+      "kind": "name",
+      "name": "bridge_fan_speed"
+    },
+    "bridge_interlace_lines": {
+      "kind": "name",
+      "name": "bridge_interlace_lines"
+    },
+    "lightning_infill_support_angle": {
+      "kind": "name",
+      "name": "lightning_infill_support_angle"
+    },
+    "infill_move_inwards_length": {
+      "kind": "name",
+      "name": "infill_move_inwards_length"
+    },
+    "default_material_print_temperature": {
+      "kind": "name",
+      "name": "default_material_print_temperature"
+    },
+    "material_print_temperature": {
+      "kind": "name",
+      "name": "material_print_temperature"
+    },
+    "max(-273.15, material_print_temperature - 10)": {
+      "kind": "call",
+      "name": "max",
+      "args": [
+        {
+          "kind": "unary",
+          "op": "USub",
+          "args": [
+            {
+              "kind": "constant",
+              "value": 273.15
+            }
+          ]
+        },
+        {
+          "kind": "binary",
+          "op": "Sub",
+          "args": [
+            {
+              "kind": "name",
+              "name": "material_print_temperature"
+            },
+            {
+              "kind": "constant",
+              "value": 10
+            }
+          ]
+        }
+      ]
+    },
+    "max(-273.15, material_print_temperature - 15)": {
+      "kind": "call",
+      "name": "max",
+      "args": [
+        {
+          "kind": "unary",
+          "op": "USub",
+          "args": [
+            {
+              "kind": "constant",
+              "value": 273.15
+            }
+          ]
+        },
+        {
+          "kind": "binary",
+          "op": "Sub",
+          "args": [
+            {
+              "kind": "name",
+              "name": "material_print_temperature"
+            },
+            {
+              "kind": "constant",
+              "value": 15
+            }
+          ]
+        }
+      ]
+    },
+    "default_material_bed_temperature": {
+      "kind": "name",
+      "name": "default_material_bed_temperature"
+    },
+    "resolveOrValue('material_bed_temperature')": {
+      "kind": "call",
+      "name": "resolveOrValue",
+      "args": [
+        {
+          "kind": "constant",
+          "value": "material_bed_temperature"
+        }
+      ]
+    },
+    "material_shrinkage_percentage": {
+      "kind": "name",
+      "name": "material_shrinkage_percentage"
+    },
+    "material_flow": {
+      "kind": "name",
+      "name": "material_flow"
+    },
+    "wall_material_flow": {
+      "kind": "name",
+      "name": "wall_material_flow"
+    },
+    "wall_0_material_flow": {
+      "kind": "name",
+      "name": "wall_0_material_flow"
+    },
+    "wall_x_material_flow": {
+      "kind": "name",
+      "name": "wall_x_material_flow"
+    },
+    "skin_material_flow": {
+      "kind": "name",
+      "name": "skin_material_flow"
+    },
+    "extruderValue(support_roof_extruder_nr, 'support_interface_material_flow')": {
+      "kind": "call",
+      "name": "extruderValue",
+      "args": [
+        {
+          "kind": "name",
+          "name": "support_roof_extruder_nr"
+        },
+        {
+          "kind": "constant",
+          "value": "support_interface_material_flow"
+        }
+      ]
+    },
+    "extruderValue(support_bottom_extruder_nr, 'support_interface_material_flow')": {
+      "kind": "call",
+      "name": "extruderValue",
+      "args": [
+        {
+          "kind": "name",
+          "name": "support_bottom_extruder_nr"
+        },
+        {
+          "kind": "constant",
+          "value": "support_interface_material_flow"
+        }
+      ]
+    },
+    "material_flow_layer_0": {
+      "kind": "name",
+      "name": "material_flow_layer_0"
+    },
+    "max_flow_acceleration": {
+      "kind": "name",
+      "name": "max_flow_acceleration"
+    },
+    "16": {
+      "kind": "constant",
+      "value": 16
+    },
+    "speed_print": {
+      "kind": "name",
+      "name": "speed_print"
+    },
+    "speed_print / 2": {
+      "kind": "binary",
+      "op": "Div",
+      "args": [
+        {
+          "kind": "name",
+          "name": "speed_print"
+        },
+        {
+          "kind": "constant",
+          "value": 2
+        }
+      ]
+    },
+    "speed_wall": {
+      "kind": "name",
+      "name": "speed_wall"
+    },
+    "speed_wall * 2": {
+      "kind": "binary",
+      "op": "Mult",
+      "args": [
+        {
+          "kind": "name",
+          "name": "speed_wall"
+        },
+        {
+          "kind": "constant",
+          "value": 2
+        }
+      ]
+    },
+    "speed_wall_0": {
+      "kind": "name",
+      "name": "speed_wall_0"
+    },
+    "speed_wall_x": {
+      "kind": "name",
+      "name": "speed_wall_x"
+    },
+    "speed_topbottom": {
+      "kind": "name",
+      "name": "speed_topbottom"
+    },
+    "speed_support": {
+      "kind": "name",
+      "name": "speed_support"
+    },
+    "speed_support / 1.5": {
+      "kind": "binary",
+      "op": "Div",
+      "args": [
+        {
+          "kind": "name",
+          "name": "speed_support"
+        },
+        {
+          "kind": "constant",
+          "value": 1.5
+        }
+      ]
+    },
+    "extruderValue(support_roof_extruder_nr, 'speed_support_interface')": {
+      "kind": "call",
+      "name": "extruderValue",
+      "args": [
+        {
+          "kind": "name",
+          "name": "support_roof_extruder_nr"
+        },
+        {
+          "kind": "constant",
+          "value": "speed_support_interface"
+        }
+      ]
+    },
+    "extruderValue(support_bottom_extruder_nr, 'speed_support_interface')": {
+      "kind": "call",
+      "name": "extruderValue",
+      "args": [
+        {
+          "kind": "name",
+          "name": "support_bottom_extruder_nr"
+        },
+        {
+          "kind": "constant",
+          "value": "speed_support_interface"
+        }
+      ]
+    },
+    "speed_print if magic_spiralize else 120": {
+      "kind": "if",
+      "args": [
+        {
+          "kind": "name",
+          "name": "magic_spiralize"
+        },
+        {
+          "kind": "name",
+          "name": "speed_print"
+        },
+        {
+          "kind": "constant",
+          "value": 120
+        }
+      ]
+    },
+    "speed_print * 30 / 60": {
+      "kind": "binary",
+      "op": "Div",
+      "args": [
+        {
+          "kind": "binary",
+          "op": "Mult",
+          "args": [
+            {
+              "kind": "name",
+              "name": "speed_print"
+            },
+            {
+              "kind": "constant",
+              "value": 30
+            }
+          ]
+        },
+        {
+          "kind": "constant",
+          "value": 60
+        }
+      ]
+    },
+    "speed_layer_0": {
+      "kind": "name",
+      "name": "speed_layer_0"
+    },
+    "speed_layer_0 * speed_travel / speed_print": {
+      "kind": "binary",
+      "op": "Div",
+      "args": [
+        {
+          "kind": "binary",
+          "op": "Mult",
+          "args": [
+            {
+              "kind": "name",
+              "name": "speed_layer_0"
+            },
+            {
+              "kind": "name",
+              "name": "speed_travel"
+            }
+          ]
+        },
+        {
+          "kind": "name",
+          "name": "speed_print"
+        }
+      ]
+    },
+    "acceleration_print": {
+      "kind": "name",
+      "name": "acceleration_print"
+    },
+    "acceleration_wall": {
+      "kind": "name",
+      "name": "acceleration_wall"
+    },
+    "acceleration_wall_0": {
+      "kind": "name",
+      "name": "acceleration_wall_0"
+    },
+    "acceleration_wall_x": {
+      "kind": "name",
+      "name": "acceleration_wall_x"
+    },
+    "acceleration_support": {
+      "kind": "name",
+      "name": "acceleration_support"
+    },
+    "extruderValue(support_roof_extruder_nr, 'acceleration_support_interface')": {
+      "kind": "call",
+      "name": "extruderValue",
+      "args": [
+        {
+          "kind": "name",
+          "name": "support_roof_extruder_nr"
+        },
+        {
+          "kind": "constant",
+          "value": "acceleration_support_interface"
+        }
+      ]
+    },
+    "extruderValue(support_bottom_extruder_nr, 'acceleration_support_interface')": {
+      "kind": "call",
+      "name": "extruderValue",
+      "args": [
+        {
+          "kind": "name",
+          "name": "support_bottom_extruder_nr"
+        },
+        {
+          "kind": "constant",
+          "value": "acceleration_support_interface"
+        }
+      ]
+    },
+    "acceleration_print if magic_spiralize else 5000": {
+      "kind": "if",
+      "args": [
+        {
+          "kind": "name",
+          "name": "magic_spiralize"
+        },
+        {
+          "kind": "name",
+          "name": "acceleration_print"
+        },
+        {
+          "kind": "constant",
+          "value": 5000
+        }
+      ]
+    },
+    "acceleration_layer_0": {
+      "kind": "name",
+      "name": "acceleration_layer_0"
+    },
+    "acceleration_layer_0 * acceleration_travel / acceleration_print": {
+      "kind": "binary",
+      "op": "Div",
+      "args": [
+        {
+          "kind": "binary",
+          "op": "Mult",
+          "args": [
+            {
+              "kind": "name",
+              "name": "acceleration_layer_0"
+            },
+            {
+              "kind": "name",
+              "name": "acceleration_travel"
+            }
+          ]
+        },
+        {
+          "kind": "name",
+          "name": "acceleration_print"
+        }
+      ]
+    },
+    "jerk_print": {
+      "kind": "name",
+      "name": "jerk_print"
+    },
+    "jerk_wall": {
+      "kind": "name",
+      "name": "jerk_wall"
+    },
+    "jerk_wall_0": {
+      "kind": "name",
+      "name": "jerk_wall_0"
+    },
+    "jerk_wall_x": {
+      "kind": "name",
+      "name": "jerk_wall_x"
+    },
+    "jerk_support": {
+      "kind": "name",
+      "name": "jerk_support"
+    },
+    "extruderValue(support_roof_extruder_nr, 'jerk_support_interface')": {
+      "kind": "call",
+      "name": "extruderValue",
+      "args": [
+        {
+          "kind": "name",
+          "name": "support_roof_extruder_nr"
+        },
+        {
+          "kind": "constant",
+          "value": "jerk_support_interface"
+        }
+      ]
+    },
+    "jerk_print if magic_spiralize else 30": {
+      "kind": "if",
+      "args": [
+        {
+          "kind": "name",
+          "name": "magic_spiralize"
+        },
+        {
+          "kind": "name",
+          "name": "jerk_print"
+        },
+        {
+          "kind": "constant",
+          "value": 30
+        }
+      ]
+    },
+    "jerk_layer_0": {
+      "kind": "name",
+      "name": "jerk_layer_0"
+    },
+    "jerk_layer_0 * jerk_travel / jerk_print": {
+      "kind": "binary",
+      "op": "Div",
+      "args": [
+        {
+          "kind": "binary",
+          "op": "Mult",
+          "args": [
+            {
+              "kind": "name",
+              "name": "jerk_layer_0"
+            },
+            {
+              "kind": "name",
+              "name": "jerk_travel"
+            }
+          ]
+        },
+        {
+          "kind": "name",
+          "name": "jerk_print"
+        }
+      ]
+    },
+    "retraction_speed": {
+      "kind": "name",
+      "name": "retraction_speed"
+    },
+    "line_width * 2": {
+      "kind": "binary",
+      "op": "Mult",
+      "args": [
+        {
+          "kind": "name",
+          "name": "line_width"
+        },
+        {
+          "kind": "constant",
+          "value": 2
+        }
+      ]
+    },
+    "retraction_amount": {
+      "kind": "name",
+      "name": "retraction_amount"
+    },
+    "'no_outer_surfaces' if (any(extruderValues('skin_monotonic')) or any(extruderValues('ironing_enabled')) or (any(extruderValues('roofing_monotonic')) and any(extruderValues('roofing_layer_count')))) else 'all'": {
+      "kind": "if",
+      "args": [
+        {
+          "kind": "bool",
+          "op": "Or",
+          "args": [
+            {
+              "kind": "call",
+              "name": "any",
+              "args": [
+                {
+                  "kind": "call",
+                  "name": "extruderValues",
+                  "args": [
+                    {
+                      "kind": "constant",
+                      "value": "skin_monotonic"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "call",
+              "name": "any",
+              "args": [
+                {
+                  "kind": "call",
+                  "name": "extruderValues",
+                  "args": [
+                    {
+                      "kind": "constant",
+                      "value": "ironing_enabled"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "bool",
+              "op": "And",
+              "args": [
+                {
+                  "kind": "call",
+                  "name": "any",
+                  "args": [
+                    {
+                      "kind": "call",
+                      "name": "extruderValues",
+                      "args": [
+                        {
+                          "kind": "constant",
+                          "value": "roofing_monotonic"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "call",
+                  "name": "any",
+                  "args": [
+                    {
+                      "kind": "call",
+                      "name": "extruderValues",
+                      "args": [
+                        {
+                          "kind": "constant",
+                          "value": "roofing_layer_count"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "constant",
+          "value": "no_outer_surfaces"
+        },
+        {
+          "kind": "constant",
+          "value": "all"
+        }
+      ]
+    },
+    "machine_nozzle_size * 1.5": {
+      "kind": "binary",
+      "op": "Mult",
+      "args": [
+        {
+          "kind": "name",
+          "name": "machine_nozzle_size"
+        },
+        {
+          "kind": "constant",
+          "value": 1.5
+        }
+      ]
+    },
+    "machine_nozzle_tip_outer_diameter / 2 * 1.25": {
+      "kind": "binary",
+      "op": "Mult",
+      "args": [
+        {
+          "kind": "binary",
+          "op": "Div",
+          "args": [
+            {
+              "kind": "name",
+              "name": "machine_nozzle_tip_outer_diameter"
+            },
+            {
+              "kind": "constant",
+              "value": 2
+            }
+          ]
+        },
+        {
+          "kind": "constant",
+          "value": 1.25
+        }
+      ]
+    },
+    "(z_seam_x + machine_width / 2 if (not machine_center_is_zero and z_seam_relative) else z_seam_x) if (layer_start_at_z_seam and z_seam_type == 'back') else (sum(extruderValues('machine_extruder_start_pos_x')) / len(extruderValues('machine_extruder_start_pos_x')))": {
+      "kind": "if",
+      "args": [
+        {
+          "kind": "bool",
+          "op": "And",
+          "args": [
+            {
+              "kind": "name",
+              "name": "layer_start_at_z_seam"
+            },
+            {
+              "kind": "compare",
+              "ops": [
+                "Eq"
+              ],
+              "args": [
+                {
+                  "kind": "name",
+                  "name": "z_seam_type"
+                },
+                {
+                  "kind": "constant",
+                  "value": "back"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "if",
+          "args": [
+            {
+              "kind": "bool",
+              "op": "And",
+              "args": [
+                {
+                  "kind": "unary",
+                  "op": "Not",
+                  "args": [
+                    {
+                      "kind": "name",
+                      "name": "machine_center_is_zero"
+                    }
+                  ]
+                },
+                {
+                  "kind": "name",
+                  "name": "z_seam_relative"
+                }
+              ]
+            },
+            {
+              "kind": "binary",
+              "op": "Add",
+              "args": [
+                {
+                  "kind": "name",
+                  "name": "z_seam_x"
+                },
+                {
+                  "kind": "binary",
+                  "op": "Div",
+                  "args": [
+                    {
+                      "kind": "name",
+                      "name": "machine_width"
+                    },
+                    {
+                      "kind": "constant",
+                      "value": 2
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "name",
+              "name": "z_seam_x"
+            }
+          ]
+        },
+        {
+          "kind": "binary",
+          "op": "Div",
+          "args": [
+            {
+              "kind": "call",
+              "name": "sum",
+              "args": [
+                {
+                  "kind": "call",
+                  "name": "extruderValues",
+                  "args": [
+                    {
+                      "kind": "constant",
+                      "value": "machine_extruder_start_pos_x"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "call",
+              "name": "len",
+              "args": [
+                {
+                  "kind": "call",
+                  "name": "extruderValues",
+                  "args": [
+                    {
+                      "kind": "constant",
+                      "value": "machine_extruder_start_pos_x"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "(z_seam_y + machine_depth / 2 if (not machine_center_is_zero and z_seam_relative) else z_seam_y) if (layer_start_at_z_seam and z_seam_type == 'back') else (sum(extruderValues('machine_extruder_start_pos_y')) / len(extruderValues('machine_extruder_start_pos_y')))": {
+      "kind": "if",
+      "args": [
+        {
+          "kind": "bool",
+          "op": "And",
+          "args": [
+            {
+              "kind": "name",
+              "name": "layer_start_at_z_seam"
+            },
+            {
+              "kind": "compare",
+              "ops": [
+                "Eq"
+              ],
+              "args": [
+                {
+                  "kind": "name",
+                  "name": "z_seam_type"
+                },
+                {
+                  "kind": "constant",
+                  "value": "back"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "if",
+          "args": [
+            {
+              "kind": "bool",
+              "op": "And",
+              "args": [
+                {
+                  "kind": "unary",
+                  "op": "Not",
+                  "args": [
+                    {
+                      "kind": "name",
+                      "name": "machine_center_is_zero"
+                    }
+                  ]
+                },
+                {
+                  "kind": "name",
+                  "name": "z_seam_relative"
+                }
+              ]
+            },
+            {
+              "kind": "binary",
+              "op": "Add",
+              "args": [
+                {
+                  "kind": "name",
+                  "name": "z_seam_y"
+                },
+                {
+                  "kind": "binary",
+                  "op": "Div",
+                  "args": [
+                    {
+                      "kind": "name",
+                      "name": "machine_depth"
+                    },
+                    {
+                      "kind": "constant",
+                      "value": 2
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "name",
+              "name": "z_seam_y"
+            }
+          ]
+        },
+        {
+          "kind": "binary",
+          "op": "Div",
+          "args": [
+            {
+              "kind": "call",
+              "name": "sum",
+              "args": [
+                {
+                  "kind": "call",
+                  "name": "extruderValues",
+                  "args": [
+                    {
+                      "kind": "constant",
+                      "value": "machine_extruder_start_pos_y"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "call",
+              "name": "len",
+              "args": [
+                {
+                  "kind": "call",
+                  "name": "extruderValues",
+                  "args": [
+                    {
+                      "kind": "constant",
+                      "value": "machine_extruder_start_pos_y"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "retraction_hop": {
+      "kind": "name",
+      "name": "retraction_hop"
+    },
+    "max(1, int(math.floor((build_fan_full_at_height - resolveOrValue('layer_height_0')) / resolveOrValue('layer_height')) + 2))": {
+      "kind": "call",
+      "name": "max",
+      "args": [
+        {
+          "kind": "constant",
+          "value": 1
+        },
+        {
+          "kind": "call",
+          "name": "int",
+          "args": [
+            {
+              "kind": "binary",
+              "op": "Add",
+              "args": [
+                {
+                  "kind": "call",
+                  "name": "math.floor",
+                  "args": [
+                    {
+                      "kind": "binary",
+                      "op": "Div",
+                      "args": [
+                        {
+                          "kind": "binary",
+                          "op": "Sub",
+                          "args": [
+                            {
+                              "kind": "name",
+                              "name": "build_fan_full_at_height"
+                            },
+                            {
+                              "kind": "call",
+                              "name": "resolveOrValue",
+                              "args": [
+                                {
+                                  "kind": "constant",
+                                  "value": "layer_height_0"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "call",
+                          "name": "resolveOrValue",
+                          "args": [
+                            {
+                              "kind": "constant",
+                              "value": "layer_height"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "constant",
+                  "value": 2
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "100.0 if cool_fan_enabled else 0.0": {
+      "kind": "if",
+      "args": [
+        {
+          "kind": "name",
+          "name": "cool_fan_enabled"
+        },
+        {
+          "kind": "constant",
+          "value": 100.0
+        },
+        {
+          "kind": "constant",
+          "value": 0.0
+        }
+      ]
+    },
+    "cool_fan_speed": {
+      "kind": "name",
+      "name": "cool_fan_speed"
+    },
+    "0 if resolveOrValue('adhesion_type') == 'raft' else resolveOrValue('layer_height_0')": {
+      "kind": "if",
+      "args": [
+        {
+          "kind": "compare",
+          "ops": [
+            "Eq"
+          ],
+          "args": [
+            {
+              "kind": "call",
+              "name": "resolveOrValue",
+              "args": [
+                {
+                  "kind": "constant",
+                  "value": "adhesion_type"
+                }
+              ]
+            },
+            {
+              "kind": "constant",
+              "value": "raft"
+            }
+          ]
+        },
+        {
+          "kind": "constant",
+          "value": 0
+        },
+        {
+          "kind": "call",
+          "name": "resolveOrValue",
+          "args": [
+            {
+              "kind": "constant",
+              "value": "layer_height_0"
+            }
+          ]
+        }
+      ]
+    },
+    "max(1, int(math.floor((cool_fan_full_at_height - resolveOrValue('layer_height_0')) / resolveOrValue('layer_height')) + 2))": {
+      "kind": "call",
+      "name": "max",
+      "args": [
+        {
+          "kind": "constant",
+          "value": 1
+        },
+        {
+          "kind": "call",
+          "name": "int",
+          "args": [
+            {
+              "kind": "binary",
+              "op": "Add",
+              "args": [
+                {
+                  "kind": "call",
+                  "name": "math.floor",
+                  "args": [
+                    {
+                      "kind": "binary",
+                      "op": "Div",
+                      "args": [
+                        {
+                          "kind": "binary",
+                          "op": "Sub",
+                          "args": [
+                            {
+                              "kind": "name",
+                              "name": "cool_fan_full_at_height"
+                            },
+                            {
+                              "kind": "call",
+                              "name": "resolveOrValue",
+                              "args": [
+                                {
+                                  "kind": "constant",
+                                  "value": "layer_height_0"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "call",
+                          "name": "resolveOrValue",
+                          "args": [
+                            {
+                              "kind": "constant",
+                              "value": "layer_height"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "constant",
+                  "value": 2
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "int(anyExtruderWithMaterial('material_is_support_material'))": {
+      "kind": "call",
+      "name": "int",
+      "args": [
+        {
+          "kind": "call",
+          "name": "anyExtruderWithMaterial",
+          "args": [
+            {
+              "kind": "constant",
+              "value": "material_is_support_material"
+            }
+          ]
+        }
+      ]
+    },
+    "support_extruder_nr": {
+      "kind": "name",
+      "name": "support_extruder_nr"
+    },
+    "support_interface_extruder_nr": {
+      "kind": "name",
+      "name": "support_interface_extruder_nr"
+    },
+    "max(min(support_angle, 85), 20)": {
+      "kind": "call",
+      "name": "max",
+      "args": [
+        {
+          "kind": "call",
+          "name": "min",
+          "args": [
+            {
+              "kind": "name",
+              "name": "support_angle"
+            },
+            {
+              "kind": "constant",
+              "value": 85
+            }
+          ]
+        },
+        {
+          "kind": "constant",
+          "value": 20
+        }
+      ]
+    },
+    "support_tree_angle * 2 / 3": {
+      "kind": "binary",
+      "op": "Div",
+      "args": [
+        {
+          "kind": "binary",
+          "op": "Mult",
+          "args": [
+            {
+              "kind": "name",
+              "name": "support_tree_angle"
+            },
+            {
+              "kind": "constant",
+              "value": 2
+            }
+          ]
+        },
+        {
+          "kind": "constant",
+          "value": 3
+        }
+      ]
+    },
+    "30 if support_roof_enable else 10": {
+      "kind": "if",
+      "args": [
+        {
+          "kind": "name",
+          "name": "support_roof_enable"
+        },
+        {
+          "kind": "constant",
+          "value": 30
+        },
+        {
+          "kind": "constant",
+          "value": 10
+        }
+      ]
+    },
+    "support_line_width * 2": {
+      "kind": "binary",
+      "op": "Mult",
+      "args": [
+        {
+          "kind": "name",
+          "name": "support_line_width"
+        },
+        {
+          "kind": "constant",
+          "value": 2
+        }
+      ]
+    },
+    "'buildplate' if support_type == 'buildplate' else 'graceful'": {
+      "kind": "if",
+      "args": [
+        {
+          "kind": "compare",
+          "ops": [
+            "Eq"
+          ],
+          "args": [
+            {
+              "kind": "name",
+              "name": "support_type"
+            },
+            {
+              "kind": "constant",
+              "value": "buildplate"
+            }
+          ]
+        },
+        {
+          "kind": "constant",
+          "value": "buildplate"
+        },
+        {
+          "kind": "constant",
+          "value": "graceful"
+        }
+      ]
+    },
+    "1 if support_enable and support_structure == 'tree' else (1 if (support_pattern == 'grid' or support_pattern == 'triangles' or support_pattern == 'concentric') else 0)": {
+      "kind": "if",
+      "args": [
+        {
+          "kind": "bool",
+          "op": "And",
+          "args": [
+            {
+              "kind": "name",
+              "name": "support_enable"
+            },
+            {
+              "kind": "compare",
+              "ops": [
+                "Eq"
+              ],
+              "args": [
+                {
+                  "kind": "name",
+                  "name": "support_structure"
+                },
+                {
+                  "kind": "constant",
+                  "value": "tree"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "constant",
+          "value": 1
+        },
+        {
+          "kind": "if",
+          "args": [
+            {
+              "kind": "bool",
+              "op": "Or",
+              "args": [
+                {
+                  "kind": "compare",
+                  "ops": [
+                    "Eq"
+                  ],
+                  "args": [
+                    {
+                      "kind": "name",
+                      "name": "support_pattern"
+                    },
+                    {
+                      "kind": "constant",
+                      "value": "grid"
+                    }
+                  ]
+                },
+                {
+                  "kind": "compare",
+                  "ops": [
+                    "Eq"
+                  ],
+                  "args": [
+                    {
+                      "kind": "name",
+                      "name": "support_pattern"
+                    },
+                    {
+                      "kind": "constant",
+                      "value": "triangles"
+                    }
+                  ]
+                },
+                {
+                  "kind": "compare",
+                  "ops": [
+                    "Eq"
+                  ],
+                  "args": [
+                    {
+                      "kind": "name",
+                      "name": "support_pattern"
+                    },
+                    {
+                      "kind": "constant",
+                      "value": "concentric"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "constant",
+              "value": 1
+            },
+            {
+              "kind": "constant",
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    "1 if (support_interface_pattern == 'zigzag') else 0": {
+      "kind": "if",
+      "args": [
+        {
+          "kind": "compare",
+          "ops": [
+            "Eq"
+          ],
+          "args": [
+            {
+              "kind": "name",
+              "name": "support_interface_pattern"
+            },
+            {
+              "kind": "constant",
+              "value": "zigzag"
+            }
+          ]
+        },
+        {
+          "kind": "constant",
+          "value": 1
+        },
+        {
+          "kind": "constant",
+          "value": 0
+        }
+      ]
+    },
+    "support_interface_wall_count": {
+      "kind": "name",
+      "name": "support_interface_wall_count"
+    },
+    "support_lightning_angle": {
+      "kind": "name",
+      "name": "support_lightning_angle"
+    },
+    "support_pattern == 'cross' or support_pattern == 'gyroid' or support_pattern == 'honeycomb' or support_pattern == 'octagon'": {
+      "kind": "bool",
+      "op": "Or",
+      "args": [
+        {
+          "kind": "compare",
+          "ops": [
+            "Eq"
+          ],
+          "args": [
+            {
+              "kind": "name",
+              "name": "support_pattern"
+            },
+            {
+              "kind": "constant",
+              "value": "cross"
+            }
+          ]
+        },
+        {
+          "kind": "compare",
+          "ops": [
+            "Eq"
+          ],
+          "args": [
+            {
+              "kind": "name",
+              "name": "support_pattern"
+            },
+            {
+              "kind": "constant",
+              "value": "gyroid"
+            }
+          ]
+        },
+        {
+          "kind": "compare",
+          "ops": [
+            "Eq"
+          ],
+          "args": [
+            {
+              "kind": "name",
+              "name": "support_pattern"
+            },
+            {
+              "kind": "constant",
+              "value": "honeycomb"
+            }
+          ]
+        },
+        {
+          "kind": "compare",
+          "ops": [
+            "Eq"
+          ],
+          "args": [
+            {
+              "kind": "name",
+              "name": "support_pattern"
+            },
+            {
+              "kind": "constant",
+              "value": "octagon"
+            }
+          ]
+        }
+      ]
+    },
+    "15 if support_enable and support_structure == 'normal' else 0 if support_enable and support_structure == 'tree' else 15": {
+      "kind": "if",
+      "args": [
+        {
+          "kind": "bool",
+          "op": "And",
+          "args": [
+            {
+              "kind": "name",
+              "name": "support_enable"
+            },
+            {
+              "kind": "compare",
+              "ops": [
+                "Eq"
+              ],
+              "args": [
+                {
+                  "kind": "name",
+                  "name": "support_structure"
+                },
+                {
+                  "kind": "constant",
+                  "value": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "constant",
+          "value": 15
+        },
+        {
+          "kind": "if",
+          "args": [
+            {
+              "kind": "bool",
+              "op": "And",
+              "args": [
+                {
+                  "kind": "name",
+                  "name": "support_enable"
+                },
+                {
+                  "kind": "compare",
+                  "ops": [
+                    "Eq"
+                  ],
+                  "args": [
+                    {
+                      "kind": "name",
+                      "name": "support_structure"
+                    },
+                    {
+                      "kind": "constant",
+                      "value": "tree"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "constant",
+              "value": 0
+            },
+            {
+              "kind": "constant",
+              "value": 15
+            }
+          ]
+        }
+      ]
+    },
+    "0 if support_infill_rate == 0 else (support_line_width * 100) / support_infill_rate * (2 if support_pattern == 'grid' else (3 if support_pattern == 'triangles' else 1))": {
+      "kind": "if",
+      "args": [
+        {
+          "kind": "compare",
+          "ops": [
+            "Eq"
+          ],
+          "args": [
+            {
+              "kind": "name",
+              "name": "support_infill_rate"
+            },
+            {
+              "kind": "constant",
+              "value": 0
+            }
+          ]
+        },
+        {
+          "kind": "constant",
+          "value": 0
+        },
+        {
+          "kind": "binary",
+          "op": "Mult",
+          "args": [
+            {
+              "kind": "binary",
+              "op": "Div",
+              "args": [
+                {
+                  "kind": "binary",
+                  "op": "Mult",
+                  "args": [
+                    {
+                      "kind": "name",
+                      "name": "support_line_width"
+                    },
+                    {
+                      "kind": "constant",
+                      "value": 100
+                    }
+                  ]
+                },
+                {
+                  "kind": "name",
+                  "name": "support_infill_rate"
+                }
+              ]
+            },
+            {
+              "kind": "if",
+              "args": [
+                {
+                  "kind": "compare",
+                  "ops": [
+                    "Eq"
+                  ],
+                  "args": [
+                    {
+                      "kind": "name",
+                      "name": "support_pattern"
+                    },
+                    {
+                      "kind": "constant",
+                      "value": "grid"
+                    }
+                  ]
+                },
+                {
+                  "kind": "constant",
+                  "value": 2
+                },
+                {
+                  "kind": "if",
+                  "args": [
+                    {
+                      "kind": "compare",
+                      "ops": [
+                        "Eq"
+                      ],
+                      "args": [
+                        {
+                          "kind": "name",
+                          "name": "support_pattern"
+                        },
+                        {
+                          "kind": "constant",
+                          "value": "triangles"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "constant",
+                      "value": 3
+                    },
+                    {
+                      "kind": "constant",
+                      "value": 1
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "support_line_distance": {
+      "kind": "name",
+      "name": "support_line_distance"
+    },
+    "(skirt_brim_line_width * initial_layer_line_width_factor / 100.0) * 3": {
+      "kind": "binary",
+      "op": "Mult",
+      "args": [
+        {
+          "kind": "binary",
+          "op": "Div",
+          "args": [
+            {
+              "kind": "binary",
+              "op": "Mult",
+              "args": [
+                {
+                  "kind": "name",
+                  "name": "skirt_brim_line_width"
+                },
+                {
+                  "kind": "name",
+                  "name": "initial_layer_line_width_factor"
+                }
+              ]
+            },
+            {
+              "kind": "constant",
+              "value": 100.0
+            }
+          ]
+        },
+        {
+          "kind": "constant",
+          "value": 3
+        }
+      ]
+    },
+    "round(support_brim_width / (skirt_brim_line_width * initial_layer_line_width_factor / 100.0))": {
+      "kind": "call",
+      "name": "round",
+      "args": [
+        {
+          "kind": "binary",
+          "op": "Div",
+          "args": [
+            {
+              "kind": "name",
+              "name": "support_brim_width"
+            },
+            {
+              "kind": "binary",
+              "op": "Div",
+              "args": [
+                {
+                  "kind": "binary",
+                  "op": "Mult",
+                  "args": [
+                    {
+                      "kind": "name",
+                      "name": "skirt_brim_line_width"
+                    },
+                    {
+                      "kind": "name",
+                      "name": "initial_layer_line_width_factor"
+                    }
+                  ]
+                },
+                {
+                  "kind": "constant",
+                  "value": 100.0
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "skirt_brim_line_width * skirt_brim_line_width * 100": {
+      "kind": "binary",
+      "op": "Mult",
+      "args": [
+        {
+          "kind": "binary",
+          "op": "Mult",
+          "args": [
+            {
+              "kind": "name",
+              "name": "skirt_brim_line_width"
+            },
+            {
+              "kind": "name",
+              "name": "skirt_brim_line_width"
+            }
+          ]
+        },
+        {
+          "kind": "constant",
+          "value": 100
+        }
+      ]
+    },
+    "extruderValue(support_roof_extruder_nr if support_roof_enable else support_infill_extruder_nr, 'support_z_distance')": {
+      "kind": "call",
+      "name": "extruderValue",
+      "args": [
+        {
+          "kind": "if",
+          "args": [
+            {
+              "kind": "name",
+              "name": "support_roof_enable"
+            },
+            {
+              "kind": "name",
+              "name": "support_roof_extruder_nr"
+            },
+            {
+              "kind": "name",
+              "name": "support_infill_extruder_nr"
+            }
+          ]
+        },
+        {
+          "kind": "constant",
+          "value": "support_z_distance"
+        }
+      ]
+    },
+    "extruderValue(support_bottom_extruder_nr if support_bottom_enable else support_infill_extruder_nr, 'support_z_distance') if support_type == 'everywhere' else 0": {
+      "kind": "if",
+      "args": [
+        {
+          "kind": "compare",
+          "ops": [
+            "Eq"
+          ],
+          "args": [
+            {
+              "kind": "name",
+              "name": "support_type"
+            },
+            {
+              "kind": "constant",
+              "value": "everywhere"
+            }
+          ]
+        },
+        {
+          "kind": "call",
+          "name": "extruderValue",
+          "args": [
+            {
+              "kind": "if",
+              "args": [
+                {
+                  "kind": "name",
+                  "name": "support_bottom_enable"
+                },
+                {
+                  "kind": "name",
+                  "name": "support_bottom_extruder_nr"
+                },
+                {
+                  "kind": "name",
+                  "name": "support_infill_extruder_nr"
+                }
+              ]
+            },
+            {
+              "kind": "constant",
+              "value": "support_z_distance"
+            }
+          ]
+        },
+        {
+          "kind": "constant",
+          "value": 0
+        }
+      ]
+    },
+    "0 if support_bottom_enable else 0.3": {
+      "kind": "if",
+      "args": [
+        {
+          "kind": "name",
+          "name": "support_bottom_enable"
+        },
+        {
+          "kind": "constant",
+          "value": 0
+        },
+        {
+          "kind": "constant",
+          "value": 0.3
+        }
+      ]
+    },
+    "support_line_width + 0.4 if support_structure == 'normal' else 0.0": {
+      "kind": "if",
+      "args": [
+        {
+          "kind": "compare",
+          "ops": [
+            "Eq"
+          ],
+          "args": [
+            {
+              "kind": "name",
+              "name": "support_structure"
+            },
+            {
+              "kind": "constant",
+              "value": "normal"
+            }
+          ]
+        },
+        {
+          "kind": "binary",
+          "op": "Add",
+          "args": [
+            {
+              "kind": "name",
+              "name": "support_line_width"
+            },
+            {
+              "kind": "constant",
+              "value": 0.4
+            }
+          ]
+        },
+        {
+          "kind": "constant",
+          "value": 0.0
+        }
+      ]
+    },
+    "extruderValue(support_roof_extruder_nr, 'support_interface_enable')": {
+      "kind": "call",
+      "name": "extruderValue",
+      "args": [
+        {
+          "kind": "name",
+          "name": "support_roof_extruder_nr"
+        },
+        {
+          "kind": "constant",
+          "value": "support_interface_enable"
+        }
+      ]
+    },
+    "extruderValue(support_bottom_extruder_nr, 'support_interface_enable')": {
+      "kind": "call",
+      "name": "extruderValue",
+      "args": [
+        {
+          "kind": "name",
+          "name": "support_bottom_extruder_nr"
+        },
+        {
+          "kind": "constant",
+          "value": "support_interface_enable"
+        }
+      ]
+    },
+    "extruderValue(support_roof_extruder_nr, 'support_interface_height')": {
+      "kind": "call",
+      "name": "extruderValue",
+      "args": [
+        {
+          "kind": "name",
+          "name": "support_roof_extruder_nr"
+        },
+        {
+          "kind": "constant",
+          "value": "support_interface_height"
+        }
+      ]
+    },
+    "extruderValue(support_bottom_extruder_nr, 'support_interface_height')": {
+      "kind": "call",
+      "name": "extruderValue",
+      "args": [
+        {
+          "kind": "name",
+          "name": "support_bottom_extruder_nr"
+        },
+        {
+          "kind": "constant",
+          "value": "support_interface_height"
+        }
+      ]
+    },
+    "extruderValue(support_roof_extruder_nr, 'support_interface_density')": {
+      "kind": "call",
+      "name": "extruderValue",
+      "args": [
+        {
+          "kind": "name",
+          "name": "support_roof_extruder_nr"
+        },
+        {
+          "kind": "constant",
+          "value": "support_interface_density"
+        }
+      ]
+    },
+    "0 if support_roof_density == 0 else (support_roof_line_width * 100) / support_roof_density * (2 if support_roof_pattern == 'grid' else (3 if support_roof_pattern == 'triangles' else 1))": {
+      "kind": "if",
+      "args": [
+        {
+          "kind": "compare",
+          "ops": [
+            "Eq"
+          ],
+          "args": [
+            {
+              "kind": "name",
+              "name": "support_roof_density"
+            },
+            {
+              "kind": "constant",
+              "value": 0
+            }
+          ]
+        },
+        {
+          "kind": "constant",
+          "value": 0
+        },
+        {
+          "kind": "binary",
+          "op": "Mult",
+          "args": [
+            {
+              "kind": "binary",
+              "op": "Div",
+              "args": [
+                {
+                  "kind": "binary",
+                  "op": "Mult",
+                  "args": [
+                    {
+                      "kind": "name",
+                      "name": "support_roof_line_width"
+                    },
+                    {
+                      "kind": "constant",
+                      "value": 100
+                    }
+                  ]
+                },
+                {
+                  "kind": "name",
+                  "name": "support_roof_density"
+                }
+              ]
+            },
+            {
+              "kind": "if",
+              "args": [
+                {
+                  "kind": "compare",
+                  "ops": [
+                    "Eq"
+                  ],
+                  "args": [
+                    {
+                      "kind": "name",
+                      "name": "support_roof_pattern"
+                    },
+                    {
+                      "kind": "constant",
+                      "value": "grid"
+                    }
+                  ]
+                },
+                {
+                  "kind": "constant",
+                  "value": 2
+                },
+                {
+                  "kind": "if",
+                  "args": [
+                    {
+                      "kind": "compare",
+                      "ops": [
+                        "Eq"
+                      ],
+                      "args": [
+                        {
+                          "kind": "name",
+                          "name": "support_roof_pattern"
+                        },
+                        {
+                          "kind": "constant",
+                          "value": "triangles"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "constant",
+                      "value": 3
+                    },
+                    {
+                      "kind": "constant",
+                      "value": 1
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "extruderValue(support_bottom_extruder_nr, 'support_interface_density')": {
+      "kind": "call",
+      "name": "extruderValue",
+      "args": [
+        {
+          "kind": "name",
+          "name": "support_bottom_extruder_nr"
+        },
+        {
+          "kind": "constant",
+          "value": "support_interface_density"
+        }
+      ]
+    },
+    "0 if support_bottom_density == 0 else (support_bottom_line_width * 100) / support_bottom_density * (2 if support_bottom_pattern == 'grid' else (3 if support_bottom_pattern == 'triangles' else 1))": {
+      "kind": "if",
+      "args": [
+        {
+          "kind": "compare",
+          "ops": [
+            "Eq"
+          ],
+          "args": [
+            {
+              "kind": "name",
+              "name": "support_bottom_density"
+            },
+            {
+              "kind": "constant",
+              "value": 0
+            }
+          ]
+        },
+        {
+          "kind": "constant",
+          "value": 0
+        },
+        {
+          "kind": "binary",
+          "op": "Mult",
+          "args": [
+            {
+              "kind": "binary",
+              "op": "Div",
+              "args": [
+                {
+                  "kind": "binary",
+                  "op": "Mult",
+                  "args": [
+                    {
+                      "kind": "name",
+                      "name": "support_bottom_line_width"
+                    },
+                    {
+                      "kind": "constant",
+                      "value": 100
+                    }
+                  ]
+                },
+                {
+                  "kind": "name",
+                  "name": "support_bottom_density"
+                }
+              ]
+            },
+            {
+              "kind": "if",
+              "args": [
+                {
+                  "kind": "compare",
+                  "ops": [
+                    "Eq"
+                  ],
+                  "args": [
+                    {
+                      "kind": "name",
+                      "name": "support_bottom_pattern"
+                    },
+                    {
+                      "kind": "constant",
+                      "value": "grid"
+                    }
+                  ]
+                },
+                {
+                  "kind": "constant",
+                  "value": 2
+                },
+                {
+                  "kind": "if",
+                  "args": [
+                    {
+                      "kind": "compare",
+                      "ops": [
+                        "Eq"
+                      ],
+                      "args": [
+                        {
+                          "kind": "name",
+                          "name": "support_bottom_pattern"
+                        },
+                        {
+                          "kind": "constant",
+                          "value": "triangles"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "constant",
+                      "value": 3
+                    },
+                    {
+                      "kind": "constant",
+                      "value": 1
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "extruderValue(support_roof_extruder_nr, 'support_interface_pattern')": {
+      "kind": "call",
+      "name": "extruderValue",
+      "args": [
+        {
+          "kind": "name",
+          "name": "support_roof_extruder_nr"
+        },
+        {
+          "kind": "constant",
+          "value": "support_interface_pattern"
+        }
+      ]
+    },
+    "extruderValue(support_bottom_extruder_nr, 'support_interface_pattern')": {
+      "kind": "call",
+      "name": "extruderValue",
+      "args": [
+        {
+          "kind": "name",
+          "name": "support_bottom_extruder_nr"
+        },
+        {
+          "kind": "constant",
+          "value": "support_interface_pattern"
+        }
+      ]
+    },
+    "extruderValue(support_roof_extruder_nr, 'minimum_interface_area')": {
+      "kind": "call",
+      "name": "extruderValue",
+      "args": [
+        {
+          "kind": "name",
+          "name": "support_roof_extruder_nr"
+        },
+        {
+          "kind": "constant",
+          "value": "minimum_interface_area"
+        }
+      ]
+    },
+    "extruderValue(support_bottom_extruder_nr, 'minimum_interface_area')": {
+      "kind": "call",
+      "name": "extruderValue",
+      "args": [
+        {
+          "kind": "name",
+          "name": "support_bottom_extruder_nr"
+        },
+        {
+          "kind": "constant",
+          "value": "minimum_interface_area"
+        }
+      ]
+    },
+    "extruderValue(support_roof_extruder_nr, 'support_interface_offset')": {
+      "kind": "call",
+      "name": "extruderValue",
+      "args": [
+        {
+          "kind": "name",
+          "name": "support_roof_extruder_nr"
+        },
+        {
+          "kind": "constant",
+          "value": "support_interface_offset"
+        }
+      ]
+    },
+    "extruderValue(support_bottom_extruder_nr, 'support_interface_offset')": {
+      "kind": "call",
+      "name": "extruderValue",
+      "args": [
+        {
+          "kind": "name",
+          "name": "support_bottom_extruder_nr"
+        },
+        {
+          "kind": "constant",
+          "value": "support_interface_offset"
+        }
+      ]
+    },
+    "support_interface_angles": {
+      "kind": "name",
+      "name": "support_interface_angles"
+    },
+    "int(defaultExtruderPosition()) if resolveOrValue('adhesion_type') == 'raft' else -1": {
+      "kind": "if",
+      "args": [
+        {
+          "kind": "compare",
+          "ops": [
+            "Eq"
+          ],
+          "args": [
+            {
+              "kind": "call",
+              "name": "resolveOrValue",
+              "args": [
+                {
+                  "kind": "constant",
+                  "value": "adhesion_type"
+                }
+              ]
+            },
+            {
+              "kind": "constant",
+              "value": "raft"
+            }
+          ]
+        },
+        {
+          "kind": "call",
+          "name": "int",
+          "args": [
+            {
+              "kind": "call",
+              "name": "defaultExtruderPosition",
+              "args": []
+            }
+          ]
+        },
+        {
+          "kind": "unary",
+          "op": "USub",
+          "args": [
+            {
+              "kind": "constant",
+              "value": 1
+            }
+          ]
+        }
+      ]
+    },
+    "adhesion_extruder_nr": {
+      "kind": "name",
+      "name": "adhesion_extruder_nr"
+    },
+    "0 if adhesion_extruder_nr == -1 else adhesion_extruder_nr": {
+      "kind": "if",
+      "args": [
+        {
+          "kind": "compare",
+          "ops": [
+            "Eq"
+          ],
+          "args": [
+            {
+              "kind": "name",
+              "name": "adhesion_extruder_nr"
+            },
+            {
+              "kind": "unary",
+              "op": "USub",
+              "args": [
+                {
+                  "kind": "constant",
+                  "value": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "constant",
+          "value": 0
+        },
+        {
+          "kind": "name",
+          "name": "adhesion_extruder_nr"
+        }
+      ]
+    },
+    "3 if resolveOrValue('skirt_gap') > 0.0 else 1": {
+      "kind": "if",
+      "args": [
+        {
+          "kind": "compare",
+          "ops": [
+            "Gt"
+          ],
+          "args": [
+            {
+              "kind": "call",
+              "name": "resolveOrValue",
+              "args": [
+                {
+                  "kind": "constant",
+                  "value": "skirt_gap"
+                }
+              ]
+            },
+            {
+              "kind": "constant",
+              "value": 0.0
+            }
+          ]
+        },
+        {
+          "kind": "constant",
+          "value": 3
+        },
+        {
+          "kind": "constant",
+          "value": 1
+        }
+      ]
+    },
+    "math.ceil(brim_width / (skirt_brim_line_width * initial_layer_line_width_factor / 100.0))": {
+      "kind": "call",
+      "name": "math.ceil",
+      "args": [
+        {
+          "kind": "binary",
+          "op": "Div",
+          "args": [
+            {
+              "kind": "name",
+              "name": "brim_width"
+            },
+            {
+              "kind": "binary",
+              "op": "Div",
+              "args": [
+                {
+                  "kind": "binary",
+                  "op": "Mult",
+                  "args": [
+                    {
+                      "kind": "name",
+                      "name": "skirt_brim_line_width"
+                    },
+                    {
+                      "kind": "name",
+                      "name": "initial_layer_line_width_factor"
+                    }
+                  ]
+                },
+                {
+                  "kind": "constant",
+                  "value": 100.0
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "line_width * 4": {
+      "kind": "binary",
+      "op": "Mult",
+      "args": [
+        {
+          "kind": "name",
+          "name": "line_width"
+        },
+        {
+          "kind": "constant",
+          "value": 4
+        }
+      ]
+    },
+    "raft_margin": {
+      "kind": "name",
+      "name": "raft_margin"
+    },
+    "raft_remove_inside_corners": {
+      "kind": "name",
+      "name": "raft_remove_inside_corners"
+    },
+    "raft_smoothing": {
+      "kind": "name",
+      "name": "raft_smoothing"
+    },
+    "raft_airgap / 2": {
+      "kind": "binary",
+      "op": "Div",
+      "args": [
+        {
+          "kind": "name",
+          "name": "raft_airgap"
+        },
+        {
+          "kind": "constant",
+          "value": 2
+        }
+      ]
+    },
+    "resolveOrValue('layer_height_0') * 1.2": {
+      "kind": "binary",
+      "op": "Mult",
+      "args": [
+        {
+          "kind": "call",
+          "name": "resolveOrValue",
+          "args": [
+            {
+              "kind": "constant",
+              "value": "layer_height_0"
+            }
+          ]
+        },
+        {
+          "kind": "constant",
+          "value": 1.2
+        }
+      ]
+    },
+    "machine_nozzle_size * 2": {
+      "kind": "binary",
+      "op": "Mult",
+      "args": [
+        {
+          "kind": "name",
+          "name": "machine_nozzle_size"
+        },
+        {
+          "kind": "constant",
+          "value": 2
+        }
+      ]
+    },
+    "raft_base_line_width * 2": {
+      "kind": "binary",
+      "op": "Mult",
+      "args": [
+        {
+          "kind": "name",
+          "name": "raft_base_line_width"
+        },
+        {
+          "kind": "constant",
+          "value": 2
+        }
+      ]
+    },
+    "raft_base_line_width * raft_base_infill_overlap / 100": {
+      "kind": "binary",
+      "op": "Div",
+      "args": [
+        {
+          "kind": "binary",
+          "op": "Mult",
+          "args": [
+            {
+              "kind": "name",
+              "name": "raft_base_line_width"
+            },
+            {
+              "kind": "name",
+              "name": "raft_base_infill_overlap"
+            }
+          ]
+        },
+        {
+          "kind": "constant",
+          "value": 100
+        }
+      ]
+    },
+    "resolveOrValue('layer_height') * 1.5": {
+      "kind": "binary",
+      "op": "Mult",
+      "args": [
+        {
+          "kind": "call",
+          "name": "resolveOrValue",
+          "args": [
+            {
+              "kind": "constant",
+              "value": "layer_height"
+            }
+          ]
+        },
+        {
+          "kind": "constant",
+          "value": 1.5
+        }
+      ]
+    },
+    "raft_interface_line_width + 0.2": {
+      "kind": "binary",
+      "op": "Add",
+      "args": [
+        {
+          "kind": "name",
+          "name": "raft_interface_line_width"
+        },
+        {
+          "kind": "constant",
+          "value": 0.2
+        }
+      ]
+    },
+    "raft_interface_line_width * raft_interface_infill_overlap / 100": {
+      "kind": "binary",
+      "op": "Div",
+      "args": [
+        {
+          "kind": "binary",
+          "op": "Mult",
+          "args": [
+            {
+              "kind": "name",
+              "name": "raft_interface_line_width"
+            },
+            {
+              "kind": "name",
+              "name": "raft_interface_infill_overlap"
+            }
+          ]
+        },
+        {
+          "kind": "constant",
+          "value": 100
+        }
+      ]
+    },
+    "raft_surface_line_width": {
+      "kind": "name",
+      "name": "raft_surface_line_width"
+    },
+    "skin_monotonic": {
+      "kind": "name",
+      "name": "skin_monotonic"
+    },
+    "raft_surface_line_width * raft_surface_infill_overlap / 100": {
+      "kind": "binary",
+      "op": "Div",
+      "args": [
+        {
+          "kind": "binary",
+          "op": "Mult",
+          "args": [
+            {
+              "kind": "name",
+              "name": "raft_surface_line_width"
+            },
+            {
+              "kind": "name",
+              "name": "raft_surface_infill_overlap"
+            }
+          ]
+        },
+        {
+          "kind": "constant",
+          "value": 100
+        }
+      ]
+    },
+    "raft_wall_count": {
+      "kind": "name",
+      "name": "raft_wall_count"
+    },
+    "speed_print / 60 * 30": {
+      "kind": "binary",
+      "op": "Mult",
+      "args": [
+        {
+          "kind": "binary",
+          "op": "Div",
+          "args": [
+            {
+              "kind": "name",
+              "name": "speed_print"
+            },
+            {
+              "kind": "constant",
+              "value": 60
+            }
+          ]
+        },
+        {
+          "kind": "constant",
+          "value": 30
+        }
+      ]
+    },
+    "0.75 * raft_speed": {
+      "kind": "binary",
+      "op": "Mult",
+      "args": [
+        {
+          "kind": "constant",
+          "value": 0.75
+        },
+        {
+          "kind": "name",
+          "name": "raft_speed"
+        }
+      ]
+    },
+    "raft_speed * 0.75": {
+      "kind": "binary",
+      "op": "Mult",
+      "args": [
+        {
+          "kind": "name",
+          "name": "raft_speed"
+        },
+        {
+          "kind": "constant",
+          "value": 0.75
+        }
+      ]
+    },
+    "raft_speed": {
+      "kind": "name",
+      "name": "raft_speed"
+    },
+    "raft_acceleration": {
+      "kind": "name",
+      "name": "raft_acceleration"
+    },
+    "raft_jerk": {
+      "kind": "name",
+      "name": "raft_jerk"
+    },
+    "raft_fan_speed": {
+      "kind": "name",
+      "name": "raft_fan_speed"
+    },
+    "raft_flow": {
+      "kind": "name",
+      "name": "raft_flow"
+    },
+    "((resolveOrValue('machine_width') / 2 + resolveOrValue('prime_tower_size') / 2) if resolveOrValue('machine_shape') == 'elliptic' else (resolveOrValue('machine_width') - (resolveOrValue('prime_tower_base_size') if (resolveOrValue('adhesion_type') == 'raft' or resolveOrValue('prime_tower_brim_enable')) else 0) - max(max(extruderValues('travel_avoid_distance')) + max(extruderValues('machine_nozzle_offset_x')) + max(extruderValues('support_offset')) + (extruderValue(skirt_brim_extruder_nr, 'skirt_brim_line_width') * extruderValue(skirt_brim_extruder_nr, 'skirt_line_count') * extruderValue(skirt_brim_extruder_nr, 'initial_layer_line_width_factor') / 100 + extruderValue(skirt_brim_extruder_nr, 'skirt_gap') if resolveOrValue('adhesion_type') == 'skirt' else 0) + (resolveOrValue('draft_shield_dist') if resolveOrValue('draft_shield_enabled') else 0), max(map(abs, extruderValues('machine_nozzle_offset_x'))), 1))) - (resolveOrValue('machine_width') / 2 if resolveOrValue('machine_center_is_zero') else 0)": {
+      "kind": "binary",
+      "op": "Sub",
+      "args": [
+        {
+          "kind": "if",
+          "args": [
+            {
+              "kind": "compare",
+              "ops": [
+                "Eq"
+              ],
+              "args": [
+                {
+                  "kind": "call",
+                  "name": "resolveOrValue",
+                  "args": [
+                    {
+                      "kind": "constant",
+                      "value": "machine_shape"
+                    }
+                  ]
+                },
+                {
+                  "kind": "constant",
+                  "value": "elliptic"
+                }
+              ]
+            },
+            {
+              "kind": "binary",
+              "op": "Add",
+              "args": [
+                {
+                  "kind": "binary",
+                  "op": "Div",
+                  "args": [
+                    {
+                      "kind": "call",
+                      "name": "resolveOrValue",
+                      "args": [
+                        {
+                          "kind": "constant",
+                          "value": "machine_width"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "constant",
+                      "value": 2
+                    }
+                  ]
+                },
+                {
+                  "kind": "binary",
+                  "op": "Div",
+                  "args": [
+                    {
+                      "kind": "call",
+                      "name": "resolveOrValue",
+                      "args": [
+                        {
+                          "kind": "constant",
+                          "value": "prime_tower_size"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "constant",
+                      "value": 2
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "binary",
+              "op": "Sub",
+              "args": [
+                {
+                  "kind": "binary",
+                  "op": "Sub",
+                  "args": [
+                    {
+                      "kind": "call",
+                      "name": "resolveOrValue",
+                      "args": [
+                        {
+                          "kind": "constant",
+                          "value": "machine_width"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "if",
+                      "args": [
+                        {
+                          "kind": "bool",
+                          "op": "Or",
+                          "args": [
+                            {
+                              "kind": "compare",
+                              "ops": [
+                                "Eq"
+                              ],
+                              "args": [
+                                {
+                                  "kind": "call",
+                                  "name": "resolveOrValue",
+                                  "args": [
+                                    {
+                                      "kind": "constant",
+                                      "value": "adhesion_type"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "kind": "constant",
+                                  "value": "raft"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "call",
+                              "name": "resolveOrValue",
+                              "args": [
+                                {
+                                  "kind": "constant",
+                                  "value": "prime_tower_brim_enable"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "call",
+                          "name": "resolveOrValue",
+                          "args": [
+                            {
+                              "kind": "constant",
+                              "value": "prime_tower_base_size"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "constant",
+                          "value": 0
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "call",
+                  "name": "max",
+                  "args": [
+                    {
+                      "kind": "binary",
+                      "op": "Add",
+                      "args": [
+                        {
+                          "kind": "binary",
+                          "op": "Add",
+                          "args": [
+                            {
+                              "kind": "binary",
+                              "op": "Add",
+                              "args": [
+                                {
+                                  "kind": "binary",
+                                  "op": "Add",
+                                  "args": [
+                                    {
+                                      "kind": "call",
+                                      "name": "max",
+                                      "args": [
+                                        {
+                                          "kind": "call",
+                                          "name": "extruderValues",
+                                          "args": [
+                                            {
+                                              "kind": "constant",
+                                              "value": "travel_avoid_distance"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "call",
+                                      "name": "max",
+                                      "args": [
+                                        {
+                                          "kind": "call",
+                                          "name": "extruderValues",
+                                          "args": [
+                                            {
+                                              "kind": "constant",
+                                              "value": "machine_nozzle_offset_x"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "kind": "call",
+                                  "name": "max",
+                                  "args": [
+                                    {
+                                      "kind": "call",
+                                      "name": "extruderValues",
+                                      "args": [
+                                        {
+                                          "kind": "constant",
+                                          "value": "support_offset"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "if",
+                              "args": [
+                                {
+                                  "kind": "compare",
+                                  "ops": [
+                                    "Eq"
+                                  ],
+                                  "args": [
+                                    {
+                                      "kind": "call",
+                                      "name": "resolveOrValue",
+                                      "args": [
+                                        {
+                                          "kind": "constant",
+                                          "value": "adhesion_type"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "constant",
+                                      "value": "skirt"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "kind": "binary",
+                                  "op": "Add",
+                                  "args": [
+                                    {
+                                      "kind": "binary",
+                                      "op": "Div",
+                                      "args": [
+                                        {
+                                          "kind": "binary",
+                                          "op": "Mult",
+                                          "args": [
+                                            {
+                                              "kind": "binary",
+                                              "op": "Mult",
+                                              "args": [
+                                                {
+                                                  "kind": "call",
+                                                  "name": "extruderValue",
+                                                  "args": [
+                                                    {
+                                                      "kind": "name",
+                                                      "name": "skirt_brim_extruder_nr"
+                                                    },
+                                                    {
+                                                      "kind": "constant",
+                                                      "value": "skirt_brim_line_width"
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "kind": "call",
+                                                  "name": "extruderValue",
+                                                  "args": [
+                                                    {
+                                                      "kind": "name",
+                                                      "name": "skirt_brim_extruder_nr"
+                                                    },
+                                                    {
+                                                      "kind": "constant",
+                                                      "value": "skirt_line_count"
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "kind": "call",
+                                              "name": "extruderValue",
+                                              "args": [
+                                                {
+                                                  "kind": "name",
+                                                  "name": "skirt_brim_extruder_nr"
+                                                },
+                                                {
+                                                  "kind": "constant",
+                                                  "value": "initial_layer_line_width_factor"
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "constant",
+                                          "value": 100
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "call",
+                                      "name": "extruderValue",
+                                      "args": [
+                                        {
+                                          "kind": "name",
+                                          "name": "skirt_brim_extruder_nr"
+                                        },
+                                        {
+                                          "kind": "constant",
+                                          "value": "skirt_gap"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "kind": "constant",
+                                  "value": 0
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "if",
+                          "args": [
+                            {
+                              "kind": "call",
+                              "name": "resolveOrValue",
+                              "args": [
+                                {
+                                  "kind": "constant",
+                                  "value": "draft_shield_enabled"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "call",
+                              "name": "resolveOrValue",
+                              "args": [
+                                {
+                                  "kind": "constant",
+                                  "value": "draft_shield_dist"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "constant",
+                              "value": 0
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "call",
+                      "name": "max",
+                      "args": [
+                        {
+                          "kind": "call",
+                          "name": "map",
+                          "args": [
+                            {
+                              "kind": "name",
+                              "name": "abs"
+                            },
+                            {
+                              "kind": "call",
+                              "name": "extruderValues",
+                              "args": [
+                                {
+                                  "kind": "constant",
+                                  "value": "machine_nozzle_offset_x"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "constant",
+                      "value": 1
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "if",
+          "args": [
+            {
+              "kind": "call",
+              "name": "resolveOrValue",
+              "args": [
+                {
+                  "kind": "constant",
+                  "value": "machine_center_is_zero"
+                }
+              ]
+            },
+            {
+              "kind": "binary",
+              "op": "Div",
+              "args": [
+                {
+                  "kind": "call",
+                  "name": "resolveOrValue",
+                  "args": [
+                    {
+                      "kind": "constant",
+                      "value": "machine_width"
+                    }
+                  ]
+                },
+                {
+                  "kind": "constant",
+                  "value": 2
+                }
+              ]
+            },
+            {
+              "kind": "constant",
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    "machine_depth - prime_tower_size - (resolveOrValue('prime_tower_base_size') if (resolveOrValue('adhesion_type') == 'raft' or resolveOrValue('prime_tower_brim_enable')) else 0) - max(max(extruderValues('travel_avoid_distance')) + max(extruderValues('machine_nozzle_offset_y')) + max(extruderValues('support_offset')) + (extruderValue(skirt_brim_extruder_nr, 'skirt_brim_line_width') * extruderValue(skirt_brim_extruder_nr, 'skirt_line_count') * extruderValue(skirt_brim_extruder_nr, 'initial_layer_line_width_factor') / 100 + extruderValue(skirt_brim_extruder_nr, 'skirt_gap') if resolveOrValue('adhesion_type') == 'skirt' else 0) + (resolveOrValue('draft_shield_dist') if resolveOrValue('draft_shield_enabled') else 0), max(map(abs, extruderValues('machine_nozzle_offset_y'))), 1) - (resolveOrValue('machine_depth') / 2 if resolveOrValue('machine_center_is_zero') else 0)": {
+      "kind": "binary",
+      "op": "Sub",
+      "args": [
+        {
+          "kind": "binary",
+          "op": "Sub",
+          "args": [
+            {
+              "kind": "binary",
+              "op": "Sub",
+              "args": [
+                {
+                  "kind": "binary",
+                  "op": "Sub",
+                  "args": [
+                    {
+                      "kind": "name",
+                      "name": "machine_depth"
+                    },
+                    {
+                      "kind": "name",
+                      "name": "prime_tower_size"
+                    }
+                  ]
+                },
+                {
+                  "kind": "if",
+                  "args": [
+                    {
+                      "kind": "bool",
+                      "op": "Or",
+                      "args": [
+                        {
+                          "kind": "compare",
+                          "ops": [
+                            "Eq"
+                          ],
+                          "args": [
+                            {
+                              "kind": "call",
+                              "name": "resolveOrValue",
+                              "args": [
+                                {
+                                  "kind": "constant",
+                                  "value": "adhesion_type"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "constant",
+                              "value": "raft"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "call",
+                          "name": "resolveOrValue",
+                          "args": [
+                            {
+                              "kind": "constant",
+                              "value": "prime_tower_brim_enable"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "call",
+                      "name": "resolveOrValue",
+                      "args": [
+                        {
+                          "kind": "constant",
+                          "value": "prime_tower_base_size"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "constant",
+                      "value": 0
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "kind": "call",
+              "name": "max",
+              "args": [
+                {
+                  "kind": "binary",
+                  "op": "Add",
+                  "args": [
+                    {
+                      "kind": "binary",
+                      "op": "Add",
+                      "args": [
+                        {
+                          "kind": "binary",
+                          "op": "Add",
+                          "args": [
+                            {
+                              "kind": "binary",
+                              "op": "Add",
+                              "args": [
+                                {
+                                  "kind": "call",
+                                  "name": "max",
+                                  "args": [
+                                    {
+                                      "kind": "call",
+                                      "name": "extruderValues",
+                                      "args": [
+                                        {
+                                          "kind": "constant",
+                                          "value": "travel_avoid_distance"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "kind": "call",
+                                  "name": "max",
+                                  "args": [
+                                    {
+                                      "kind": "call",
+                                      "name": "extruderValues",
+                                      "args": [
+                                        {
+                                          "kind": "constant",
+                                          "value": "machine_nozzle_offset_y"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "call",
+                              "name": "max",
+                              "args": [
+                                {
+                                  "kind": "call",
+                                  "name": "extruderValues",
+                                  "args": [
+                                    {
+                                      "kind": "constant",
+                                      "value": "support_offset"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "if",
+                          "args": [
+                            {
+                              "kind": "compare",
+                              "ops": [
+                                "Eq"
+                              ],
+                              "args": [
+                                {
+                                  "kind": "call",
+                                  "name": "resolveOrValue",
+                                  "args": [
+                                    {
+                                      "kind": "constant",
+                                      "value": "adhesion_type"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "kind": "constant",
+                                  "value": "skirt"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "binary",
+                              "op": "Add",
+                              "args": [
+                                {
+                                  "kind": "binary",
+                                  "op": "Div",
+                                  "args": [
+                                    {
+                                      "kind": "binary",
+                                      "op": "Mult",
+                                      "args": [
+                                        {
+                                          "kind": "binary",
+                                          "op": "Mult",
+                                          "args": [
+                                            {
+                                              "kind": "call",
+                                              "name": "extruderValue",
+                                              "args": [
+                                                {
+                                                  "kind": "name",
+                                                  "name": "skirt_brim_extruder_nr"
+                                                },
+                                                {
+                                                  "kind": "constant",
+                                                  "value": "skirt_brim_line_width"
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "kind": "call",
+                                              "name": "extruderValue",
+                                              "args": [
+                                                {
+                                                  "kind": "name",
+                                                  "name": "skirt_brim_extruder_nr"
+                                                },
+                                                {
+                                                  "kind": "constant",
+                                                  "value": "skirt_line_count"
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "call",
+                                          "name": "extruderValue",
+                                          "args": [
+                                            {
+                                              "kind": "name",
+                                              "name": "skirt_brim_extruder_nr"
+                                            },
+                                            {
+                                              "kind": "constant",
+                                              "value": "initial_layer_line_width_factor"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "constant",
+                                      "value": 100
+                                    }
+                                  ]
+                                },
+                                {
+                                  "kind": "call",
+                                  "name": "extruderValue",
+                                  "args": [
+                                    {
+                                      "kind": "name",
+                                      "name": "skirt_brim_extruder_nr"
+                                    },
+                                    {
+                                      "kind": "constant",
+                                      "value": "skirt_gap"
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "constant",
+                              "value": 0
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "if",
+                      "args": [
+                        {
+                          "kind": "call",
+                          "name": "resolveOrValue",
+                          "args": [
+                            {
+                              "kind": "constant",
+                              "value": "draft_shield_enabled"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "call",
+                          "name": "resolveOrValue",
+                          "args": [
+                            {
+                              "kind": "constant",
+                              "value": "draft_shield_dist"
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "constant",
+                          "value": 0
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "call",
+                  "name": "max",
+                  "args": [
+                    {
+                      "kind": "call",
+                      "name": "map",
+                      "args": [
+                        {
+                          "kind": "name",
+                          "name": "abs"
+                        },
+                        {
+                          "kind": "call",
+                          "name": "extruderValues",
+                          "args": [
+                            {
+                              "kind": "constant",
+                              "value": "machine_nozzle_offset_y"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "kind": "constant",
+                  "value": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "if",
+          "args": [
+            {
+              "kind": "call",
+              "name": "resolveOrValue",
+              "args": [
+                {
+                  "kind": "constant",
+                  "value": "machine_center_is_zero"
+                }
+              ]
+            },
+            {
+              "kind": "binary",
+              "op": "Div",
+              "args": [
+                {
+                  "kind": "call",
+                  "name": "resolveOrValue",
+                  "args": [
+                    {
+                      "kind": "constant",
+                      "value": "machine_depth"
+                    }
+                  ]
+                },
+                {
+                  "kind": "constant",
+                  "value": 2
+                }
+              ]
+            },
+            {
+              "kind": "constant",
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    "resolveOrValue('adhesion_type') in ['raft', 'brim']": {
+      "kind": "compare",
+      "ops": [
+        "In"
+      ],
+      "args": [
+        {
+          "kind": "call",
+          "name": "resolveOrValue",
+          "args": [
+            {
+              "kind": "constant",
+              "value": "adhesion_type"
+            }
+          ]
+        },
+        {
+          "kind": "list",
+          "args": [
+            {
+              "kind": "constant",
+              "value": "raft"
+            },
+            {
+              "kind": "constant",
+              "value": "brim"
+            }
+          ]
+        }
+      ]
+    },
+    "resolveOrValue('raft_margin') if resolveOrValue('adhesion_type') == 'raft' else resolveOrValue('brim_width')": {
+      "kind": "if",
+      "args": [
+        {
+          "kind": "compare",
+          "ops": [
+            "Eq"
+          ],
+          "args": [
+            {
+              "kind": "call",
+              "name": "resolveOrValue",
+              "args": [
+                {
+                  "kind": "constant",
+                  "value": "adhesion_type"
+                }
+              ]
+            },
+            {
+              "kind": "constant",
+              "value": "raft"
+            }
+          ]
+        },
+        {
+          "kind": "call",
+          "name": "resolveOrValue",
+          "args": [
+            {
+              "kind": "constant",
+              "value": "raft_margin"
+            }
+          ]
+        },
+        {
+          "kind": "call",
+          "name": "resolveOrValue",
+          "args": [
+            {
+              "kind": "constant",
+              "value": "brim_width"
+            }
+          ]
+        }
+      ]
+    },
+    "raft_base_line_spacing": {
+      "kind": "name",
+      "name": "raft_base_line_spacing"
+    },
+    "machine_heat_zone_length": {
+      "kind": "name",
+      "name": "machine_heat_zone_length"
+    },
+    "switch_extruder_retraction_speeds": {
+      "kind": "name",
+      "name": "switch_extruder_retraction_speeds"
+    },
+    "2 * wall_line_width_0": {
+      "kind": "binary",
+      "op": "Mult",
+      "args": [
+        {
+          "kind": "constant",
+          "value": 2
+        },
+        {
+          "kind": "name",
+          "name": "wall_line_width_0"
+        }
+      ]
+    },
+    "min(line_width / 2, layer_height)": {
+      "kind": "call",
+      "name": "min",
+      "args": [
+        {
+          "kind": "binary",
+          "op": "Div",
+          "args": [
+            {
+              "kind": "name",
+              "name": "line_width"
+            },
+            {
+              "kind": "constant",
+              "value": 2
+            }
+          ]
+        },
+        {
+          "kind": "name",
+          "name": "layer_height"
+        }
+      ]
+    },
+    "line_width * 10": {
+      "kind": "binary",
+      "op": "Mult",
+      "args": [
+        {
+          "kind": "name",
+          "name": "line_width"
+        },
+        {
+          "kind": "constant",
+          "value": 10
+        }
+      ]
+    },
+    "magic_mesh_surface_mode != 'surface'": {
+      "kind": "compare",
+      "ops": [
+        "NotEq"
+      ],
+      "args": [
+        {
+          "kind": "name",
+          "name": "magic_mesh_surface_mode"
+        },
+        {
+          "kind": "constant",
+          "value": "surface"
+        }
+      ]
+    },
+    "magic_spiralize": {
+      "kind": "name",
+      "name": "magic_spiralize"
+    },
+    "extruders_enabled_count > 1": {
+      "kind": "compare",
+      "ops": [
+        "Gt"
+      ],
+      "args": [
+        {
+          "kind": "name",
+          "name": "extruders_enabled_count"
+        },
+        {
+          "kind": "constant",
+          "value": 1
+        }
+      ]
+    },
+    "min(meshfix_maximum_resolution * speed_travel / speed_print, 2 * line_width)": {
+      "kind": "call",
+      "name": "min",
+      "args": [
+        {
+          "kind": "binary",
+          "op": "Div",
+          "args": [
+            {
+              "kind": "binary",
+              "op": "Mult",
+              "args": [
+                {
+                  "kind": "name",
+                  "name": "meshfix_maximum_resolution"
+                },
+                {
+                  "kind": "name",
+                  "name": "speed_travel"
+                }
+              ]
+            },
+            {
+              "kind": "name",
+              "name": "speed_print"
+            }
+          ]
+        },
+        {
+          "kind": "binary",
+          "op": "Mult",
+          "args": [
+            {
+              "kind": "constant",
+              "value": 2
+            },
+            {
+              "kind": "name",
+              "name": "line_width"
+            }
+          ]
+        }
+      ]
+    },
+    "1 if infill_mesh else 0": {
+      "kind": "if",
+      "args": [
+        {
+          "kind": "name",
+          "name": "infill_mesh"
+        },
+        {
+          "kind": "constant",
+          "value": 1
+        },
+        {
+          "kind": "constant",
+          "value": 0
+        }
+      ]
+    },
+    "machine_gcode_flavor==\"RepRap (RepRap)\"": {
+      "kind": "compare",
+      "ops": [
+        "Eq"
+      ],
+      "args": [
+        {
+          "kind": "name",
+          "name": "machine_gcode_flavor"
+        },
+        {
+          "kind": "constant",
+          "value": "RepRap (RepRap)"
+        }
+      ]
+    },
+    "0 if support_line_distance == 0 else round(support_skip_zag_per_mm / support_line_distance)": {
+      "kind": "if",
+      "args": [
+        {
+          "kind": "compare",
+          "ops": [
+            "Eq"
+          ],
+          "args": [
+            {
+              "kind": "name",
+              "name": "support_line_distance"
+            },
+            {
+              "kind": "constant",
+              "value": 0
+            }
+          ]
+        },
+        {
+          "kind": "constant",
+          "value": 0
+        },
+        {
+          "kind": "call",
+          "name": "round",
+          "args": [
+            {
+              "kind": "binary",
+              "op": "Div",
+              "args": [
+                {
+                  "kind": "name",
+                  "name": "support_skip_zag_per_mm"
+                },
+                {
+                  "kind": "name",
+                  "name": "support_line_distance"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "10": {
+      "kind": "constant",
+      "value": 10
+    },
+    "infill_line_distance": {
+      "kind": "name",
+      "name": "infill_line_distance"
+    },
+    "10000 if magic_fuzzy_skin_point_density == 0 else 1 / magic_fuzzy_skin_point_density": {
+      "kind": "if",
+      "args": [
+        {
+          "kind": "compare",
+          "ops": [
+            "Eq"
+          ],
+          "args": [
+            {
+              "kind": "name",
+              "name": "magic_fuzzy_skin_point_density"
+            },
+            {
+              "kind": "constant",
+              "value": 0
+            }
+          ]
+        },
+        {
+          "kind": "constant",
+          "value": 10000
+        },
+        {
+          "kind": "binary",
+          "op": "Div",
+          "args": [
+            {
+              "kind": "constant",
+              "value": 1
+            },
+            {
+              "kind": "name",
+              "name": "magic_fuzzy_skin_point_density"
+            }
+          ]
+        }
+      ]
+    },
+    "cool_min_layer_time": {
+      "kind": "name",
+      "name": "cool_min_layer_time"
+    },
+    "support_angle": {
+      "kind": "name",
+      "name": "support_angle"
+    },
+    "line_width + support_xy_distance + 1.0": {
+      "kind": "binary",
+      "op": "Add",
+      "args": [
+        {
+          "kind": "binary",
+          "op": "Add",
+          "args": [
+            {
+              "kind": "name",
+              "name": "line_width"
+            },
+            {
+              "kind": "name",
+              "name": "support_xy_distance"
+            }
+          ]
+        },
+        {
+          "kind": "constant",
+          "value": 1.0
+        }
+      ]
+    },
+    "max(cool_min_speed, speed_wall_0 / 2)": {
+      "kind": "call",
+      "name": "max",
+      "args": [
+        {
+          "kind": "name",
+          "name": "cool_min_speed"
+        },
+        {
+          "kind": "binary",
+          "op": "Div",
+          "args": [
+            {
+              "kind": "name",
+              "name": "speed_wall_0"
+            },
+            {
+              "kind": "constant",
+              "value": 2
+            }
+          ]
+        }
+      ]
+    },
+    "max(cool_min_speed, speed_topbottom / 2)": {
+      "kind": "call",
+      "name": "max",
+      "args": [
+        {
+          "kind": "name",
+          "name": "cool_min_speed"
+        },
+        {
+          "kind": "binary",
+          "op": "Div",
+          "args": [
+            {
+              "kind": "name",
+              "name": "speed_topbottom"
+            },
+            {
+              "kind": "constant",
+              "value": 2
+            }
+          ]
+        }
+      ]
+    },
+    "retraction_enable": {
+      "kind": "name",
+      "name": "retraction_enable"
+    },
+    "retraction_extra_prime_amount": {
+      "kind": "name",
+      "name": "retraction_extra_prime_amount"
+    },
+    "wipe_retraction_speed": {
+      "kind": "name",
+      "name": "wipe_retraction_speed"
+    },
+    "retraction_hop_enabled": {
+      "kind": "name",
+      "name": "retraction_hop_enabled"
+    },
+    "speed_z_hop": {
+      "kind": "name",
+      "name": "speed_z_hop"
+    },
+    "small_hole_max_size * math.pi": {
+      "kind": "binary",
+      "op": "Mult",
+      "args": [
+        {
+          "kind": "name",
+          "name": "small_hole_max_size"
+        },
+        {
+          "kind": "name",
+          "name": "math.pi"
+        }
+      ]
+    },
+    "small_feature_speed_factor": {
+      "kind": "name",
+      "name": "small_feature_speed_factor"
+    }
+  }
+}

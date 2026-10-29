@@ -1,0 +1,12 @@
+.DS_Store
+__pycache__/
+*.pyc
+.venv/
+build/
+downloads/
+dist/
+reports/
+native/build/
+native/vendor-engine/
+native/EngineSource.json
+native/Resources/OriginalCubicreatorProfiles.reference.json
